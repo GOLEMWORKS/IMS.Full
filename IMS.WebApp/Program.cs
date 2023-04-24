@@ -1,4 +1,6 @@
 using IMS.Plugins.EFCore;
+using IMS.UseCases.Interfaces;
+using IMS.UseCases;
 using IMS.WebApp.Areas.Identity;
 using IMS.WebApp.Data;
 using Microsoft.AspNetCore.Components;
@@ -26,6 +28,8 @@ builder.Services.AddDbContext<IMSContext>(options =>
 {
     options.UseInMemoryDatabase("IMS");
 });
+
+builder.Services.AddTransient<IViewInventoriesByNameUseCase, ViewInventoriesByNameUseCase>();
 
 var app = builder.Build();
 
