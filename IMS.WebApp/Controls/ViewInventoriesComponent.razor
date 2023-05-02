@@ -22,7 +22,7 @@
     private async Task ViewInventories()
     {
         var inventories = (await ViewInventoriesByNameUseCase
-                .ExecuteAsync(inventoryNameToSearch??string.Empty))?.ToList();
+                .ExecuteAsync(inventoryNameToSearch??string.Empty)).ToList();
 
         await OnSearchInventories.InvokeAsync(inventories);
     }
