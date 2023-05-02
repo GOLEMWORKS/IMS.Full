@@ -11,8 +11,7 @@ namespace IMS.Plugins.EFCore
     public class IMSContext : DbContext
     {
         public IMSContext(DbContextOptions options) : base(options)
-        {
-            
+        {        
         }
 
         public DbSet<Inventory> Inventories { get; set; }

@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.EntityFrameworkCore;
+using IMS.UseCases.PluginInterfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,7 +29,8 @@ builder.Services.AddDbContext<IMSContext>(options =>
 {
     options.UseInMemoryDatabase("IMS");
 });
-
+ 
+builder.Services.AddTransient<IInventoryRepository, InventoryRepository>();
 builder.Services.AddTransient<IViewInventoriesByNameUseCase, ViewInventoriesByNameUseCase>();
 
 var app = builder.Build();

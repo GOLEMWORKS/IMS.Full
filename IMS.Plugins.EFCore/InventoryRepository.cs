@@ -12,11 +12,10 @@ namespace IMS.Plugins.EFCore
         {
             this.db = db;
         }
-        async Task<IEnumerable<Inventory>> IInventoryRepository.GetInventoriesByName(string name)
+        public async Task<IEnumerable<Inventory>> GetInventoriesByName(string name)
         {
-            return await this.db.Inventories.Where(x => x.InventoryName.Contains(name) ||
-                                             string.IsNullOrWhiteSpace(name)).ToListAsync();
-
+           return await this.db.Inventories.Where(x => x.InventoryName.Contains(name) ||
+                                            string.IsNullOrWhiteSpace(name)).ToListAsync();
         }
     }
 }
