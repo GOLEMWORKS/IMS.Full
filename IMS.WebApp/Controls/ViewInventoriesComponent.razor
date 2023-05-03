@@ -4,12 +4,12 @@
 <div class="input-group mb-3">
     <input type="text" 
         class="form-control form-control-lg"
-        placeholder="Введите название искомого инвентаря"
+        placeholder="Введите наименование"
         @bind-value="inventoryNameToSearch"/>
 
     <button type="button" 
         class="input-group-text btn-success"
-        @onclick="@(async()=> {await ViewInventories();})">View</button>
+        @onclick="@(async()=> {await ViewInventories();})">Найти</button>
 </div>
 
 

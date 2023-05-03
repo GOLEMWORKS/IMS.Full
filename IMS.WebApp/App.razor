@@ -5,9 +5,15 @@
             <FocusOnNavigate RouteData="@routeData" Selector="h1" />
         </Found>
         <NotFound>
-            <PageTitle>Not found</PageTitle>
+            <PageTitle>404</PageTitle>
             <LayoutView Layout="@typeof(MainLayout)">
-                <p role="alert">Sorry, there's nothing at this address.</p>
+                <div class="alert alert-danger col-md-6">
+                    <p role="alert">
+                        <i class="fa fa-ban"></i>
+                        У вас нет доступа к данному ресурсу, либо он отсутствует.
+                        Если вы уверенны в ошибке, то позовите системного администратора и молитесь, чтобы он это починил.
+                    </p>
+                </div>
             </LayoutView>
         </NotFound>
     </Router>
