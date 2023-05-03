@@ -11,11 +11,15 @@
 
     <button type="button"
             class="input-group-text btn-outline-success"
-        @onclick="@(async()=> {await ViewInventories();})">Найти</button>
+            @onclick="@(async()=> {await ViewInventories();})"> Найти &#8203;
+            <i class="fa fa-search"></i>
+    </button>
 
     <button type="button"
-        class="input-group-text btn-outline-success"
-        @onclick="RedirectToAddPage"><i class="fa fa-plus"></i>Добавить</button>
+            class="input-group-text btn-outline-success"
+            @onclick="RedirectToAddPage"> Добавить &#8203;
+            <i class="fa fa-plus"></i>
+    </button>
 </div>
 
 
