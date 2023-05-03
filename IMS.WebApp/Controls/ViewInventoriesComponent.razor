@@ -29,6 +29,11 @@
     [Parameter]
     public EventCallback<List<Inventory>> OnSearchInventories { get; set; }
 
+    protected override async Task OnInitializedAsync()
+    {
+        await ViewInventories();
+    }
+
     private async Task ViewInventories()
     {
         var inventories = (await ViewInventoriesByNameUseCase
