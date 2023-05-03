@@ -5,7 +5,8 @@
     <input type="text" 
         class="form-control form-control-lg"
         placeholder="Введите наименование"
-        @bind-value="inventoryNameToSearch"/>
+        @bind-value="inventoryNameToSearch"
+        @onkeyup="Enter"/>
 
     <button type="button" 
         class="input-group-text btn-success"
@@ -25,5 +26,14 @@
                 .ExecuteAsync(inventoryNameToSearch??string.Empty)).ToList();
 
         await OnSearchInventories.InvokeAsync(inventories);
+    }
+
+
+    public void Enter(KeyboardEventArgs e)
+    {
+        if (e.Code == "Enter" || e.Code == "NumpadEnter")
+        {
+            ViewInventories();
+        }
     }
 }
