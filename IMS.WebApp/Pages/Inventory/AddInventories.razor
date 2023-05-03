@@ -2,7 +2,47 @@
 @inject IAddInventoryUseCase AddInventoryUseCase
 
 <h3>Добавить наименование</h3>
+<br />
 
+@if(inventory != null)
+{
+    <EditForm Model="inventory" OnValidSubmit="OnValidSubmit">
+        <DataAnnotationsValidator></DataAnnotationsValidator>
+            <ValidationSummary></ValidationSummary>
+
+            <div class="form-group">
+                <label for="name">Наименование</label>
+                <InputText id="name" @bind-Value="inventory.InventoryName" class="form-control"></InputText>
+            </div>
+
+            <div class="form-group">
+                <label for="quantity">Количество</label>
+                <InputNumber id="quantity" @bind-Value="inventory.Quantity" class="form-control"></InputNumber>
+            </div>
+
+            <div class="form-group">
+                <label for="price">Цена</label>
+                <InputNumber id="price" @bind-Value="inventory.Price" class="form-control"></InputNumber>
+            </div>
+
+            <button type="submit" class="btn btn-primary">
+                <i class="fa fa-save"></i>
+                    &#8203;Сохранить
+            </button>
+    </EditForm>
+}
 @code {
+    private Inventory? inventory;
 
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        inventory = new Inventory();
+    }
+
+    private async Task OnValidSubmit()
+    {
+        await AddInventoryUseCase.ExecuteAsync(this.inventory);
+    }
 }

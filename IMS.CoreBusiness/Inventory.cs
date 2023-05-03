@@ -8,7 +8,9 @@ namespace IMS.CoreBusiness
 
         [Required]
         public string? InventoryName{ get; set; }
+        [Range(0, int.MaxValue, ErrorMessage = "Количество не может быть отрицательным!")]
         public int Quantity { get; set; }
+        [Range(0, double.MaxValue,ErrorMessage ="Цена не может принимать отрицательное значение!")]
         public double Price { get; set; }
     }
 }
