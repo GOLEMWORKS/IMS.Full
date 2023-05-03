@@ -21,7 +21,7 @@
                 <tr>
                     <td>@inv.InventoryName</td>
                     <td>@inv.Quantity</td>
-                    <td>@inv.Price.ToString("c")</td>
+                    <td>@inv.Price.ToString("c", new System.Globalization.CultureInfo("ru-RU"))</td>
                     <td>
                         <button 
                             class="btn btn-outline-success"
