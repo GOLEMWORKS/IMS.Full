@@ -1,0 +1,67 @@
+﻿@page "/edit/currentinventory{invId:int}"
+
+@inject IViewInventoriesByIdUseCase ViewInventoriesByIdUseCase
+@inject IEditInventoryUseCase EditInventoryUseCase
+@inject NavigationManager NavigationManager
+
+<h3>Редактирование</h3>
+
+@if(this.inventory != null)
+{
+    <EditForm Model="inventory" OnValidSubmit="OnValidSubmit">
+        <DataAnnotationsValidator></DataAnnotationsValidator>
+            <ValidationSummary></ValidationSummary>
+
+            <div class="form-group">
+                <label for="name">Наименование</label>
+                <InputText id="name" @bind-Value="inventory.InventoryName" class="form-control"></InputText>
+            </div>
+
+            <div class="form-group">
+                <label for="quantity">Количество</label>
+                <InputNumber id="quantity" @bind-Value="inventory.Quantity" class="form-control"></InputNumber>
+            </div>
+
+            <div class="form-group">
+                <label for="price">Цена</label>
+                <InputNumber id="price" @bind-Value="inventory.Price" class="form-control"></InputNumber>
+            </div>
+            <br />
+            <button 
+                type="submit" 
+                class="btn btn-primary">
+                    <i class="fa fa-save"></i>
+                &#8203; Сохранить
+            </button>
+            <button 
+                type="button" 
+                class="btn btn-danger" 
+                @onclick="Back">
+                    <i class="fa fa-close"></i>
+                Отмена
+            </button>
+    </EditForm>
+}
+
+@code {
+    [Parameter]
+    public int invId { get; set; }
+
+    private Inventory? inventory;
+
+    protected override async Task OnInitializedAsync()
+    {
+        this.inventory = await ViewInventoriesByIdUseCase.ExecuteAsync(invId);
+    }
+
+    public async Task OnValidSubmit()
+    {
+        if(this.inventory != null)
+            await EditInventoryUseCase.ExecuteAsync(this.inventory);
+    }
+
+    private void Back()
+    {
+        NavigationManager.NavigateTo("/inventories");
+    }
+}

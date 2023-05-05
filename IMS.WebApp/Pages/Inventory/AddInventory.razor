@@ -1,5 +1,7 @@
 ﻿@page "/addnewinventory"
+
 @inject IAddInventoryUseCase AddInventoryUseCase
+@inject NavigationManager NavigationManager
 
 <h3>Добавить наименование</h3>
 <br />
@@ -24,10 +26,19 @@
                 <label for="price">Цена</label>
                 <InputNumber id="price" @bind-Value="inventory.Price" class="form-control"></InputNumber>
             </div>
-
-            <button type="submit" class="btn btn-primary">
-                <i class="fa fa-save"></i>
-                    &#8203;Сохранить
+            <br />
+            <button 
+                type="submit" 
+                class="btn btn-primary">
+                    <i class="fa fa-save"></i>
+                &#8203; Сохранить
+            </button>
+            <button 
+                type="button" 
+                class="btn btn-danger" 
+                @onclick="Back">
+                    <i class="fa fa-close"></i>
+                Отмена
             </button>
     </EditForm>
 }
@@ -43,6 +54,15 @@
 
     private async Task OnValidSubmit()
     {
-        await AddInventoryUseCase.ExecuteAsync(this.inventory);
+        if(this.inventory != null)
+        {
+            await AddInventoryUseCase.ExecuteAsync(this.inventory);
+            NavigationManager.NavigateTo("/inventories");
+        }
+    }
+
+    private void Back()
+    {
+        NavigationManager.NavigateTo("/inventories");
     }
 }

@@ -6,7 +6,7 @@ namespace IMS.CoreBusiness
     {
         public int InventoryId { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Необходимо указать наименование!")]
         public string? InventoryName{ get; set; }
         [Range(0, int.MaxValue, ErrorMessage = "Количество не может быть отрицательным!")]
         public int Quantity { get; set; }

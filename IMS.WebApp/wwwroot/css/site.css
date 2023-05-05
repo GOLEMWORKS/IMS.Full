@@ -62,3 +62,7 @@ a, .btn-link {
     .blazor-error-boundary::after {
         content: "An error has occurred."
     }
+
+    .table-hover tbody tr:hover td {
+        background: #bababa36;
+    }
