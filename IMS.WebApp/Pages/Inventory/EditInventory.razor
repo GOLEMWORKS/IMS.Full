@@ -1,4 +1,4 @@
-﻿@page "/edit/currentinventory{invId:int}"
+﻿@page "/editinventory/{invId:int}"
 
 @inject IViewInventoriesByIdUseCase ViewInventoriesByIdUseCase
 @inject IEditInventoryUseCase EditInventoryUseCase
@@ -57,7 +57,11 @@
     public async Task OnValidSubmit()
     {
         if(this.inventory != null)
+        {
             await EditInventoryUseCase.ExecuteAsync(this.inventory);
+            NavigationManager.NavigateTo("/inventories");
+        }
+        
     }
 
     private void Back()
