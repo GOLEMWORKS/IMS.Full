@@ -36,6 +36,9 @@ builder.Services.AddTransient<IAddInventoryUseCase, AddInventoryUseCase>();
 builder.Services.AddTransient<IEditInventoryUseCase, EditInventoryUseCase>();
 builder.Services.AddTransient<IViewInventoriesByIdUseCase,  ViewInventoriesByIdUseCase>();
 
+//Radzen
+builder.Services.AddTransient<Radzen.DialogService, Radzen.DialogService>();
+
 var app = builder.Build();
 
 var scope = app.Services.CreateScope();
