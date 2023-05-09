@@ -4,13 +4,15 @@
 <RadzenButton Text="@text" Click="HiClicked"></RadzenButton>
 <RadzenGravatar Email="info@radzen.com"></RadzenGravatar>
 
+
+
 @code {
+    private List<Inventory> inventories;
+
     string text = "Hi";
 
     void HiClicked()
     {
         text = "Привет :)";
     }
-
-
 }
