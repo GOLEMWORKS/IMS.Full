@@ -1,16 +1,17 @@
 ﻿@page "/radzen"
 
+@using Microsoft.EntityFrameworkCore
+
 <h3>RadzenTest</h3>
 <RadzenButton Text="@text" Click="HiClicked"></RadzenButton>
 <RadzenGravatar Email="info@radzen.com"></RadzenGravatar>
 
 @code {
+
     string text = "Hi";
 
     void HiClicked()
     {
         text = "Привет :)";
     }
-
-
 }
