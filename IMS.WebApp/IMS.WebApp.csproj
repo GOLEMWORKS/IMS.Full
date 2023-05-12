@@ -20,4 +20,8 @@
     <ProjectReference Include="..\IMS.Plugins.EFCore\IMS.Plugins.EFCore.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\storage\" />
+  </ItemGroup>
+
 </Project>

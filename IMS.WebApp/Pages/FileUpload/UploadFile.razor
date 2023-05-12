@@ -1,8 +1,9 @@
 ﻿@page "/fu"
+@inject IConfiguration conf
 
 <PageTitle> Загрузка фалов демо</PageTitle>
 
-<InputFile OnChange="@OnLoadFiles" multiple />
+<InputFile OnChange="@OnLoadFiles" multiple accept=".png,.jpg,.jpeg"/>
 
 @if(errors.Count > 0)
 {
@@ -32,7 +33,30 @@
 
         foreach(var file in e.GetMultipleFiles(maxAllowedFiles))
         {
-            
+            try
+            {
+                string newFileName = Path.ChangeExtension(
+                Path.GetRandomFileName(),
+                Path.GetExtension(file.Name));
+
+                string path =
+                        Path.Combine(
+                        conf.GetValue<string>("FileStorage")!,
+                        "golemworks",
+                        newFileName);
+
+                Directory.CreateDirectory(
+                        Path.Combine(
+                        conf.GetValue<string>("FileStorage")!,
+                        "golemworks"));
+
+                await using FileStream fileStream = new(path, FileMode.Create);
+                await file.OpenReadStream(maxFileSize).CopyToAsync(fileStream);
+            }
+            catch (Exception ex)
+            {
+                errors.Add($"Файл: {file.Name} Ошибка: {ex.Message}");
+            }
         }
     }
 }
