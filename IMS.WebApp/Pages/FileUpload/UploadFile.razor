@@ -3,7 +3,7 @@
 
 <PageTitle> Загрузка фалов демо</PageTitle>
 
-<InputFile OnChange="@OnLoadFiles" multiple accept=".png,.jpg,.jpeg"/>
+<InputFile OnChange="@OnLoadFiles" class="form-control" multiple accept=".png,.jpg,.jpeg"/>
 
 @if(errors.Count > 0)
 {
@@ -19,6 +19,12 @@
 @code {
     private long maxFileSize = 1024 * 1024 * 3; //Мегабайты 3
     private int maxAllowedFiles = 3;
+    private List<string> fileTypes = new()
+    {
+        ".png",
+        ".jpg",
+        ".jpeg"
+    };
     private List<string> errors = new();
 
     private async Task OnLoadFiles(InputFileChangeEventArgs e)
@@ -35,6 +41,8 @@
         {
             try
             {
+                string currentFileExtension = Path.GetExtension(file.Name);
+                
                 string newFileName = Path.ChangeExtension(
                 Path.GetRandomFileName(),
                 Path.GetExtension(file.Name));
