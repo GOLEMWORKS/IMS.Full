@@ -12,5 +12,6 @@ namespace IMS.CoreBusiness
         public int Quantity { get; set; }
         [Range(0, double.MaxValue,ErrorMessage ="Цена не может принимать отрицательное значение!")]
         public double Price { get; set; }
+        public string? ImageName { get; set; }
     }
 }
