@@ -1,6 +1,4 @@
 using IMS.Plugins.EFCore;
-using IMS.UseCases.Interfaces;
-using IMS.UseCases;
 using IMS.WebApp.Areas.Identity;
 using IMS.WebApp.Data;
 using Microsoft.AspNetCore.Components;
@@ -10,6 +8,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.EntityFrameworkCore;
 using IMS.UseCases.PluginInterfaces;
+using IMS.UseCases.Inventories;
+using IMS.UseCases.Interfaces;
+using IMS.UseCases.Products;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -31,10 +32,14 @@ builder.Services.AddDbContext<IMSContext>(options =>
 });
  
 builder.Services.AddTransient<IInventoryRepository, InventoryRepository>();
+builder.Services.AddTransient<IProductRepository, ProductRepository>();
+
 builder.Services.AddTransient<IViewInventoriesByNameUseCase, ViewInventoriesByNameUseCase>();
 builder.Services.AddTransient<IAddInventoryUseCase, AddInventoryUseCase>();
 builder.Services.AddTransient<IEditInventoryUseCase, EditInventoryUseCase>();
 builder.Services.AddTransient<IViewInventoriesByIdUseCase,  ViewInventoriesByIdUseCase>();
+
+builder.Services.AddTransient<IViewProductsByNameUseCase, ViewProductsByNameUseCase>();
 
 var app = builder.Build();
 
