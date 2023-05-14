@@ -1,0 +1,56 @@
+﻿@using IMS.CoreBusiness
+@inject IViewProductsByNameUseCase ViewProductsByNameUseCase
+@inject NavigationManager NavigationManager
+
+<div class="input-group-text">
+    <input type="text" 
+        class="form-control"
+        placeholder="Введите наименование"
+        @bind-value="productNameToSearch"
+        @onkeyup="Enter"/>
+
+    <button type="button"
+            class="input-group-text btn-outline-success"
+            @onclick="@(async()=> {await ViewProducts();})"> Найти &#8203;
+            <i class="fa fa-search"></i>
+    </button>
+
+    <button type="button"
+            class="input-group-text btn-outline-success"
+            @onclick="RedirectToAddPage"> Добавить &#8203;
+            <i class="fa fa-plus"></i>
+    </button>
+</div>
+    
+@code {
+    private string? productNameToSearch;
+
+    [Parameter]
+    public EventCallback<List<Product>> OnSearchProducts { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await ViewProducts();
+    }
+
+    private async Task ViewProducts()
+    {
+        var products = (await ViewProductsByNameUseCase
+                .ExecuteAsync(productNameToSearch??string.Empty)).ToList();
+
+        await OnSearchProducts.InvokeAsync(products);
+    }
+
+    public void Enter(KeyboardEventArgs e)
+    {
+        if (e.Code == "Enter" || e.Code == "NumpadEnter")
+        {
+            ViewProducts();
+        }
+    }
+
+    public void RedirectToAddPage()
+    {
+        NavigationManager.NavigateTo("/addnewproduct");
+    }
+}

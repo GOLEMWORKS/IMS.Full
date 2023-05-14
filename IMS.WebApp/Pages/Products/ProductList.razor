@@ -1,0 +1,35 @@
+﻿@page "/products"
+
+<h3>Продукция</h3>
+<br />
+
+<ViewProductsComponent OnSearchProducts="@OnSearchProducts"></ViewProductsComponent>
+<br />
+@if(listProducts != null)
+{
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Наименование</th>
+            <th>Количество</th>
+            <th>Стоимость</th>
+            <th>Функции</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var prod in this.listProducts)
+        {
+            <ItemProductComponent prod="prod"></ItemProductComponent>
+        }
+    </tbody>
+</table>
+}
+
+@code {
+    private List<Product>? listProducts;
+
+    private async Task OnSearchProducts(List<Product> products)
+    {
+        this.listProducts = products;
+    }
+}
