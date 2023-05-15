@@ -1,6 +1,25 @@
 ﻿@page "/inventories"
 
 <h3>Хранилище склада</h3>
+<br />
+
+<RadzenDataGridRU 
+    Data="@listInventories" 
+    TItem="Inventory" 
+    AllowFiltering="true" 
+    AllowSorting="true" 
+    AllowPaging="true" 
+    PageSize="5"
+    ShowPagingSummary="true"
+    >
+    <Columns>
+        <RadzenDataGridColumn TItem="Inventory" Property="InventoryName" Title="Наименование">
+            <Template Context="inventoryRadzen">@inventoryRadzen.InventoryName</Template>
+        </RadzenDataGridColumn>
+        <RadzenDataGridColumn TItem="Inventory" Property="Quantity" Title="Количество"/>
+        <RadzenDataGridColumn TItem="Inventory" Property="Price" Title="Цена" />
+    </Columns>
+</RadzenDataGridRU>
 
 <br />
 
@@ -27,6 +46,7 @@
 </table>
     }
 @code {
+    private Inventory[]? inventoryRadzen;
     private List<Inventory>? listInventories;
     private void OnSearchInventories(List<Inventory> inventory)
     {
