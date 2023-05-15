@@ -1,11 +1,55 @@
 ﻿@page "/products"
 
+@inject NavigationManager NavigationManager
+
 <h3>Продукция</h3>
 <br />
 
 <ViewProductsComponent OnSearchProducts="@OnSearchProducts"></ViewProductsComponent>
-<br />
-@if(listProducts != null)
+<RadzenDataGridRU Data="@listProducts"
+                  TItem="Product"
+                  AllowFiltering="true"
+                  AllowSorting="true"
+                  AllowPaging="true"
+                  PageSize="5"
+                  ShowPagingSummary="true">
+    <Columns>
+        <RadzenDataGridColumn TItem="Product" Property="ProductName" Title="Наименование">
+            <Template Context="productRadzen">@productRadzen.ProductName</Template>
+        </RadzenDataGridColumn>
+        <RadzenDataGridColumn TItem="Product" Property="ProductQuantity" Title="Количество" />
+        <RadzenDataGridColumn TItem="Product" Property="ProductPrice" Title="Цена">
+            <Template Context="productRadzen">
+                @String.Format(new System.Globalization.CultureInfo("ru-RU"), "{0:C}", productRadzen.ProductPrice)
+            </Template>
+        </RadzenDataGridColumn>
+        <RadzenDataGridColumn TItem="Product" Context="inventoryRadzen" Filterable="false" Sortable="false" TextAlign="TextAlign.Right" Width="400px">
+            <Template Context="productRadzen">
+                <div class="btn-group-sm w-75">
+                    <button class="btn btn-success"
+                            type="button"
+                            @onclick="@(() => RedirectToEdit(productRadzen.ProductId))">
+                        Редактировать
+                        <i class="fa fa-pencil"></i>
+                    </button>
+                    <button class="btn btn-primary"
+                            type="button"
+                            @onclick="@((args) => Info(productRadzen.ProductId))">
+                        Информация
+                        <i class="fa fa-info"></i>
+                    </button>
+                    <button class="btn btn-danger"
+                            type="button"
+                            @onclick="@((args) => Delete(productRadzen.ProductId))">
+                        Удалить
+                        <i class="fa fa-trash"></i>
+                    </button>
+                </div>
+            </Template>
+        </RadzenDataGridColumn>
+    </Columns>
+</RadzenDataGridRU>
+@*@if(listProducts != null)
 {
 <table class="table table-bordered table-hover">
     <thead>
@@ -23,7 +67,7 @@
         }
     </tbody>
 </table>
-}
+}*@
 
 @code {
     private List<Product>? listProducts;
@@ -31,5 +75,20 @@
     private async Task OnSearchProducts(List<Product> products)
     {
         this.listProducts = products;
+    }
+
+    public void RedirectToEdit(int invId)
+    {
+        NavigationManager.NavigateTo($"/editproduct/{invId}");
+    }
+
+    public void Delete(int invId)
+    {
+
+    }
+
+    public void Info(int invId)
+    {
+        NavigationManager.NavigateTo($"/infoproduct/{invId}");
     }
 }

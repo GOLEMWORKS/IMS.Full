@@ -34,13 +34,33 @@
             </tbody>
         </table>
     </div>
-    
 }
-
 <br />
-<RadzenButton Click="@Back" ButtonStyle="ButtonStyle.Secondary"  Icon="arrow_back" Text="Назад" Variant="Variant.Outlined"></RadzenButton>
+@*<RadzenButton Click="@Back" ButtonStyle="ButtonStyle.Secondary"  Icon="arrow_back" Text="Назад" Variant="Variant.Outlined"></RadzenButton>
 <RadzenButton Click="@PrintMe" ButtonStyle="ButtonStyle.Secondary"  Icon="local_printshop" Text="Печать" Variant="Variant.Outlined"></RadzenButton>
-<RadzenButton Click="@RedirectToEdit" ButtonStyle="ButtonStyle.Secondary" Icon="edit" Text="Редактировать" Variant="Variant.Outlined"></RadzenButton>
+<RadzenButton Click="@RedirectToEdit" ButtonStyle="ButtonStyle.Secondary" Icon="edit" Text="Редактировать" Variant="Variant.Outlined"></RadzenButton>*@
+
+<div class="column">
+    <button type="button"
+            class="btn btn-primary"
+            @onclick="@Back">
+        <i class="fa fa-arrow-left"></i>
+        Назад
+    </button>
+    <button type="button"
+            class="btn btn-primary"
+            @onclick="@PrintMe">
+        <i class="fa fa-print"></i>
+        Печать
+    </button>
+    <button type="button"
+            class="btn btn-primary"
+            @onclick="@RedirectToEdit">
+        <i class="fa fa-pencil"></i>
+        Редактор
+    </button>
+</div>
+
 @code {
     [Parameter]
     public int invId { get; set; }

@@ -2,24 +2,28 @@
 @inject IViewProductsByNameUseCase ViewProductsByNameUseCase
 @inject NavigationManager NavigationManager
 
-<div class="input-group-text">
+<div class="input-group">
     <input type="text" 
         class="form-control"
         placeholder="Введите наименование"
         @bind-value="productNameToSearch"
         @onkeyup="Enter"/>
 
-    <button type="button"
-            class="input-group-text btn-outline-success"
-            @onclick="@(async()=> {await ViewProducts();})"> Найти &#8203;
+    <div class="btn-group">
+        <button type="button"
+                class="btn btn-success"
+                @onclick="@(async()=> {await ViewProducts();})">
+            Найти &#8203;
             <i class="fa fa-search"></i>
-    </button>
+        </button>
 
-    <button type="button"
-            class="input-group-text btn-outline-success"
-            @onclick="RedirectToAddPage"> Добавить &#8203;
+        <button type="button"
+                class="btn btn-primary"
+                @onclick="RedirectToAddPage">
+            Добавить &#8203;
             <i class="fa fa-plus"></i>
-    </button>
+        </button>
+    </div>
 </div>
     
 @code {
