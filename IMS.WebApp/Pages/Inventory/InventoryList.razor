@@ -1,4 +1,5 @@
 ﻿@page "/inventories"
+@inject NavigationManager NavigationManager
 
 <h3>Хранилище склада</h3>
 <br />
@@ -11,8 +12,7 @@
     AllowSorting="true" 
     AllowPaging="true" 
     PageSize="5"
-    ShowPagingSummary="true"
-    >
+    ShowPagingSummary="true">
     <Columns>
         <RadzenDataGridColumn TItem="Inventory" Property="InventoryName" Title="Наименование">
             <Template Context="inventoryRadzen">@inventoryRadzen.InventoryName</Template>
@@ -21,6 +21,24 @@
         <RadzenDataGridColumn TItem="Inventory" Property="Price" Title="Цена">
             <Template Context="inventoryRadzen">
                 @String.Format(new System.Globalization.CultureInfo("ru-RU"), "{0:C}", inventoryRadzen.Price)
+            </Template>
+        </RadzenDataGridColumn>
+        <RadzenDataGridColumn TItem="Inventory" Context="inventoryRadzen" Filterable="false" Sortable="false" TextAlign="TextAlign.Right" Width="150px">
+            <Template Context="inventoryRadzen">
+                <RadzenButton Icon="edit" Text="Изменить" ButtonStyle="ButtonStyle.Success" Variant="Variant.Outlined" Size="ButtonSize.Medium" Click="@((args) => RedirectToEdit(inventoryRadzen.InventoryId))">
+                </RadzenButton>
+            </Template>
+        </RadzenDataGridColumn>
+        <RadzenDataGridColumn TItem="Inventory" Context="inventoryRadzen" Filterable="false" Sortable="false" TextAlign="TextAlign.Right" Width="150px">
+            <Template Context="inventoryRadzen">
+                <RadzenButton Icon="info" Text="Инфо" ButtonStyle="ButtonStyle.Secondary" Variant="Variant.Outlined" Size="ButtonSize.Medium" Click="@((args) => Info(inventoryRadzen.InventoryId))">
+                </RadzenButton>
+            </Template>
+        </RadzenDataGridColumn>
+        <RadzenDataGridColumn TItem="Inventory" Context="inventoryRadzen" Filterable="false" Sortable="false" TextAlign="TextAlign.Right" Width="150px">
+            <Template Context="inventoryRadzen">
+                <RadzenButton Icon="delete" Text="Удалить" ButtonStyle="ButtonStyle.Danger" Variant="Variant.Outlined" Size="ButtonSize.Medium" Click="@((args) => Delete(inventoryRadzen.InventoryId))">
+                </RadzenButton>
             </Template>
         </RadzenDataGridColumn>
     </Columns>
@@ -36,5 +54,20 @@
     private void OnSearchInventories(List<Inventory> inventory)
     {
         listInventories = inventory;
+    }
+
+    public void RedirectToEdit(int invId)
+    {
+        NavigationManager.NavigateTo($"/editinventory/{invId}");
+    }
+
+    public void Delete(int invId)
+    {
+
+    }
+
+    public void Info(int invId)
+    {
+        NavigationManager.NavigateTo($"/infoinventory/{invId}");
     }
 }

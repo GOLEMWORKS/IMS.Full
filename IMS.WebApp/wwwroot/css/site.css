@@ -66,7 +66,3 @@ a, .btn-link {
     .table-hover tbody tr:hover td {
         background: #bababa36;
     }
-
-    .radzenCellsHeader {
-        background: red;
-    }
