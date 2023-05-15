@@ -4,7 +4,6 @@
 <br />
 
 <ViewInventoriesComponent OnSearchInventories="OnSearchInventories"></ViewInventoriesComponent>
-
 <RadzenDataGridRU 
     Data="@listInventories" 
     TItem="Inventory" 
@@ -27,26 +26,11 @@
     </Columns>
 </RadzenDataGridRU>
 
+
+<h1>Нужно разобраться с ItemInventoryComponent, рефакторинг всех остальных таблиц!
+    Добавить кнопки удаления, редактирования и информации
+</h1>
 <br />
-@*@if(listInventories != null)
-{
-<table class="table table-bordered table-hover">
-    <thead>
-        <tr>
-            <th>Наименование</th>
-            <th>Количество</th>
-            <th>Стоимость</th>
-            <th>Функции</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach(var inv in this.listInventories)
-        {
-            <ItemInventoryComponent inv="inv"></ItemInventoryComponent>
-        }
-    </tbody>
-</table>
-    }*@
 @code {
     private List<Inventory>? listInventories;
     private void OnSearchInventories(List<Inventory> inventory)
