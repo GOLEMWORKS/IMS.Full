@@ -9,17 +9,22 @@
         @bind-value="inventoryNameToSearch"
         @onkeyup="Enter"/>
 
-    <button type="button"
-            class="input-group-text btn-outline-success"
-            @onclick="@(async()=> {await ViewInventories();})"> Найти &#8203;
+    <div class="btn-group">
+        <button type="button"
+                class="btn btn-success"
+                @onclick="@(async()=> {await ViewInventories();})">
+            Найти &#8203;
             <i class="fa fa-search"></i>
-    </button>
+        </button>
 
-    <button type="button"
-            class="input-group-text btn-outline-success"
-            @onclick="RedirectToAddPage"> Добавить &#8203;
+        <button type="button"
+                class="btn btn-primary"
+                @onclick="RedirectToAddPage">
+            Добавить &#8203;
             <i class="fa fa-plus"></i>
-    </button>
+        </button>
+    </div>
+    
 </div>
     
 @code {
