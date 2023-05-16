@@ -1,6 +1,4 @@
 ﻿@page "/"
-@using System.Globalization;
-
 
 <PageTitle>Index</PageTitle>
 
@@ -13,8 +11,6 @@ Welcome to your new app.
 
 <p class="text-black">@TimeSpan.FromSeconds(counter)</p>
 <button class="btn btn-success" @onclick="StartTimer">Start</button>
-<button class="btn btn-success" @onclick="StopTimer">Stop</button>
-
 
 @code {
     private static System.Timers.Timer aTimer;
