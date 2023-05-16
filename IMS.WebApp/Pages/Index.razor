@@ -1,4 +1,5 @@
 ﻿@page "/"
+@using System.Globalization;
 
 
 <PageTitle>Index</PageTitle>
@@ -10,12 +11,15 @@ Welcome to your new app.
 <SurveyPrompt Title="How is Blazor working for you?" />
 
 
-<p class="text-black">@counter</p>
+<p class="text-black">@TimeSpan.FromSeconds(counter)</p>
 <button class="btn btn-success" @onclick="StartTimer">Start</button>
+<button class="btn btn-success" @onclick="StopTimer">Stop</button>
+
 
 @code {
     private static System.Timers.Timer aTimer;
-    private int counter = 360;
+    private double counter = 360;
+
     public void StartTimer()
     {
         aTimer = new System.Timers.Timer(1000);
