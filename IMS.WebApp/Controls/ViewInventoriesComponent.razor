@@ -12,7 +12,7 @@
     <div class="btn-group">
         <button type="button"
                 class="btn btn-success"
-                @onclick="@(async()=> {await ViewInventories();})">
+                @onclick="@SearchButton">
             Найти &#8203;
             <i class="fa fa-search"></i>
         </button>
@@ -28,7 +28,8 @@
     
 @if (this.DisplaySearchResult 
         && _inventories != null
-        && selectedInventory == null)
+        && selectedInventory == null
+        && ShowItems)
 {
     <div style="overflow-y: auto; max-height: 300px;">
         <ul style="list-style-type:none">
@@ -44,6 +45,11 @@
     </div>
 }
 
+@if(this.selectedInventory != null)
+{
+    <test>@selectedInventory.InventoryName</test>
+}
+
 @code {
     private string? inventoryNameToSearch;
     private List<Inventory>? _inventories;
@@ -53,10 +59,12 @@
     public EventCallback<List<Inventory>> OnSearchInventories { get; set; }
 
     [Parameter]
-    public EventCallback<Inventory> OnSearchInventory { get; set; }
+    public EventCallback<Inventory> OnSelectInventory { get; set; }
 
     [Parameter]
     public bool DisplaySearchResult { get; set; } = false;
+
+    public bool ShowItems = false;
 
     protected override async Task OnInitializedAsync()
     {
@@ -73,11 +81,18 @@
         this.selectedInventory = null;
     }
 
-    public void Enter(KeyboardEventArgs e)
+    public async void SearchButton()
+    {
+        await ViewInventories();
+        this.ShowItems = true;
+    }
+
+    public async void Enter(KeyboardEventArgs e)
     {
         if (e.Code == "Enter" || e.Code == "NumpadEnter")
         {
-            ViewInventories();
+            await ViewInventories();
+            this.ShowItems = true;
         }
     }
 
@@ -88,7 +103,7 @@
 
     private async Task SelectInventory(Inventory inv)
     {
-        await OnSearchInventory.InvokeAsync(inv);
+        await OnSelectInventory.InvokeAsync(inv);
         selectedInventory = inv;
     }
 }
