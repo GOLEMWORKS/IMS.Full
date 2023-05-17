@@ -28,16 +28,15 @@
     
 @if (this.DisplaySearchResult 
         && _inventories != null
-        && selectedInventory == null
-        && ShowItems)
+        && selectedInventory == null)
 {
     <div style="overflow-y: auto; max-height: 300px;">
         <ul style="list-style-type:none">
             @foreach (var inv in _inventories)
             {
                 <li style="cursor:pointer"
-            @onclick="@(async() => {await SelectInventory(inv); })"
-            @key="inv.InventoryId">
+                    @onclick="@(async() => {await SelectInventory(inv); })"
+                    @key="inv.InventoryId">
                     @inv.InventoryName
                 </li>
             }
@@ -59,13 +58,6 @@
     [Parameter]
     public bool DisplaySearchResult { get; set; } = false;
 
-    public bool ShowItems = false;
-
-    protected override async Task OnInitializedAsync()
-    {
-        await ViewInventories();
-    }
-
     private async Task ViewInventories()
     {
         var inventories = (await ViewInventoriesByNameUseCase
@@ -79,7 +71,6 @@
     public async void SearchButton()
     {
         await ViewInventories();
-        this.ShowItems = true;
     }
 
     public async void Enter(KeyboardEventArgs e)
@@ -87,7 +78,6 @@
         if (e.Code == "Enter" || e.Code == "NumpadEnter")
         {
             await ViewInventories();
-            this.ShowItems = true;
         }
     }
 
