@@ -4,7 +4,9 @@
 <h3>Хранилище склада</h3>
 <br />
 
-<ViewInventoriesComponent OnSearchInventories="OnSearchInventories"></ViewInventoriesComponent>
+<ViewInventoriesComponent 
+    OnSearchInventories="OnSearchInventories"
+    DisplaySearchResult="true"></ViewInventoriesComponent>
 <RadzenDataGridRU 
     Data="@listInventories" 
     TItem="Inventory" 

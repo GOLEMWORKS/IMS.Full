@@ -24,14 +24,39 @@
             <i class="fa fa-plus"></i>
         </button>
     </div>
-    
 </div>
     
+@if (this.DisplaySearchResult 
+        && _inventories != null
+        && selectedInventory == null)
+{
+    <div style="overflow-y: auto; max-height: 300px;">
+        <ul style="list-style-type:none">
+            @foreach (var inv in _inventories)
+            {
+                <li style="cursor:pointer"
+            @onclick="@(async() => {await SelectInventory(inv); })"
+            @key="inv.InventoryId">
+                    @inv.InventoryName
+                </li>
+            }
+        </ul>
+    </div>
+}
+
 @code {
     private string? inventoryNameToSearch;
+    private List<Inventory>? _inventories;
+    private Inventory? selectedInventory;
 
     [Parameter]
     public EventCallback<List<Inventory>> OnSearchInventories { get; set; }
+
+    [Parameter]
+    public EventCallback<Inventory> OnSearchInventory { get; set; }
+
+    [Parameter]
+    public bool DisplaySearchResult { get; set; } = false;
 
     protected override async Task OnInitializedAsync()
     {
@@ -44,8 +69,9 @@
                 .ExecuteAsync(inventoryNameToSearch??string.Empty)).ToList();
 
         await OnSearchInventories.InvokeAsync(inventories);
+        _inventories = inventories;
+        this.selectedInventory = null;
     }
-
 
     public void Enter(KeyboardEventArgs e)
     {
@@ -58,5 +84,11 @@
     public void RedirectToAddPage()
     {
         NavigationManager.NavigateTo("/addnewinventory");
+    }
+
+    private async Task SelectInventory(Inventory inv)
+    {
+        await OnSearchInventory.InvokeAsync(inv);
+        selectedInventory = inv;
     }
 }
