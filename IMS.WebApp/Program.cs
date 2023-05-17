@@ -42,6 +42,7 @@ builder.Services.AddTransient<IEditInventoryUseCase, EditInventoryUseCase>();
 builder.Services.AddTransient<IViewInventoriesByIdUseCase,  ViewInventoriesByIdUseCase>();
 
 builder.Services.AddTransient<IViewProductsByNameUseCase, ViewProductsByNameUseCase>();
+builder.Services.AddTransient<IAddProductUseCase, AddProductUseCase>();
 
 builder.Services.AddScoped<DialogService>();
 builder.Services.AddScoped<NotificationService>();

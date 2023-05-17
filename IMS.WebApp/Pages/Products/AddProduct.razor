@@ -1,10 +1,60 @@
-﻿<h3>Добавление продукта</h3>
+﻿@page "/addproduct"
+
+@inject IAddProductUseCase AddProductUseCase
+@inject NavigationManager NavigationManager
+
+<h3>Добавление продукта</h3>
+<br />
+
+@if (this.product != null)
+{
+    <EditForm Model="product" OnInvalidSubmit="OnValidSubmit">
+        <DataAnnotationsValidator></DataAnnotationsValidator>
+        <ValidationSummary></ValidationSummary>
+
+        <div class="form-group">
+            <label for="name">Название продукта</label>
+            <InputText id="name"
+                    @bind-Value="product.ProductName"
+                        class="form-control"></InputText>
+        </div>
+
+        <div class="form-group">
+            <label for="qty">Количество</label>
+            <InputNumber id="qty"
+                   @bind-Value="product.ProductQuantity"
+                       class="form-control"></InputNumber>
+        </div>
+
+        <div class="form-group">
+            <label for="price">Цена</label>
+            <InputNumber id="price"
+                     @bind-Value="product.ProductPrice"
+                         class="form-control"></InputNumber>
+        </div>  
+
+        <ProductInventoriesComponent></ProductInventoriesComponent>
+
+        <br/>
+        <button type="submit" class="btn btn-primary">Save</button>
+
+    </EditForm>
+}
 
 @code {
     private Product? product;
 
-    override void OnInitialized()
+    protected override void OnInitialized()
     {
-        
+        this.product = new Product();
+    }
+
+    private async Task OnValidSubmit()
+    {
+        if(this.product != null)
+        {
+            await AddProductUseCase.ExecuteAsync(this.product);
+            NavigationManager.NavigateTo("/products");
+        }
     }
 }

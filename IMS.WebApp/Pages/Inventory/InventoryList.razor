@@ -1,4 +1,5 @@
 ﻿@page "/inventories"
+
 @inject NavigationManager NavigationManager
 
 <h3>Хранилище склада</h3>
@@ -54,9 +55,6 @@
     @inv?.InventoryName
 </p>
 
-<h1>Нужно разобраться с ItemInventoryComponent, рефакторинг всех остальных таблиц!
-    Добавить кнопки удаления, редактирования и информации
-</h1>
 <br />
 @code {
     private List<Inventory>? listInventories;

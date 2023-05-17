@@ -3,8 +3,6 @@
 @inject NavigationManager NavigationManager
 
 <h3>Продукция</h3>
-<br />
-
 <ViewProductsComponent OnSearchProducts="@OnSearchProducts"></ViewProductsComponent>
 <RadzenDataGridRU Data="@listProducts"
                   TItem="Product"
@@ -49,25 +47,6 @@
         </RadzenDataGridColumn>
     </Columns>
 </RadzenDataGridRU>
-@*@if(listProducts != null)
-{
-<table class="table table-bordered table-hover">
-    <thead>
-        <tr>
-            <th>Наименование</th>
-            <th>Количество</th>
-            <th>Стоимость</th>
-            <th>Функции</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach(var prod in this.listProducts)
-        {
-            <ItemProductComponent prod="prod"></ItemProductComponent>
-        }
-    </tbody>
-</table>
-}*@
 
 @code {
     private List<Product>? listProducts;
@@ -90,5 +69,10 @@
     public void Info(int invId)
     {
         NavigationManager.NavigateTo($"/infoproduct/{invId}");
+    }
+
+    public void NavigateToAddProduct()
+    {
+        NavigationManager.NavigateTo("/addproduct");
     }
 }
