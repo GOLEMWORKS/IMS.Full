@@ -8,12 +8,13 @@
 @if (invs != null 
         && invs.Count > 0)
 {
-    <ul>
+    <ul style="list-style-type:none">
         @foreach(var inv in this.invs)
         {
             <li>@inv.InventoryName &nbsp;
                 <button class="btn btn-link"
-                @onclick="@(() => RemoveInv(inv))">
+                type="button"
+                @onclick="() => RemoveInv(inv)">
                     Убрать
                 </button>
             </li>
@@ -32,9 +33,8 @@
         }
     }
 
-    private void RemoveInv(Inventory inv)
+    private void RemoveInv(Inventory invs)
     {
-        this.invs.Remove(inv);
-        Console.WriteLine($"Убрали {inv.InventoryName}");
+        this.invs.Remove(invs);
     }
 }

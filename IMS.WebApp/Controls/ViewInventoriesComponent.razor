@@ -12,7 +12,7 @@
     <div class="btn-group">
         <button type="button"
                 class="btn btn-success"
-                @onclick="@SearchButton">
+                @onclick="@(async() => {await ViewInventories();})">
             Найти &#8203;
             <i class="fa fa-search"></i>
         </button>

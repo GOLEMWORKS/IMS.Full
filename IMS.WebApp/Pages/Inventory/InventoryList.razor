@@ -1,5 +1,6 @@
 ﻿@page "/inventories"
 
+@inject IViewInventoriesByNameUseCase ViewInventoriesByNameUseCase
 @inject NavigationManager NavigationManager
 
 <h3>Хранилище склада</h3>
@@ -51,14 +52,17 @@
         </RadzenDataGridColumn>
     </Columns>
 </RadzenDataGridRU>
-<p>
-    @inv?.InventoryName
-</p>
 
 <br />
 @code {
     private List<Inventory>? listInventories;
     private Inventory inv;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var invs = await ViewInventoriesByNameUseCase.ExecuteAsync("");
+        this.listInventories = invs.ToList();
+    }
 
     private void OnSearchInventories(List<Inventory> inventory)
     {
