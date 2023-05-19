@@ -23,6 +23,7 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\jslib\" />
+    <Folder Include="wwwroot\Stuff\Download\" />
   </ItemGroup>
 
 </Project>

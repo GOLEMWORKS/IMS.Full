@@ -7,13 +7,21 @@
         <NotFound>
             <PageTitle>404</PageTitle>
             <LayoutView Layout="@typeof(MainLayout)">
-                <div class="alert alert-danger col-md-6">
+                <div class="alert alert-danger col-md-5 d-flex p-2">
                     <p role="alert">
-                        <i class="fa fa-ban"></i>
-                        У вас нет доступа к данному ресурсу, либо он отсутствует.
+                        <i class="fa fa-ban fa-3x float-start fa-pull-right"></i> &nbsp;
+                         У вас нет доступа к данному ресурсу, либо он отсутствует в сборке.
                         Если вы уверенны в ошибке, то позовите системного администратора и молитесь, чтобы он это починил.
+                        <br /><br />
+                        &nbsp; P.S. Если вы системный администратор, то проверьте пути у элементов (Кнопки/Ссылки), либо отпишите в техподдержку с полным описанием проблемы
+                        <img class="rounded img-fluid" src="/stuff/static/kursa4zalupa.gif" />
                     </p>
                 </div>
+                <button class="btn btn-primary" type="button">
+                    <NavLink class="text-white text-decoration-none" href="" Match="NavLinkMatch.All">
+                        <span class="oi oi-home" aria-hidden="true"></span> На главную
+                    </NavLink>
+                </button>
             </LayoutView>
         </NotFound>
     </Router>
