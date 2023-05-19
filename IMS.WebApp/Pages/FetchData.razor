@@ -38,6 +38,15 @@ else
     </table>
 }
 
+<div class="col-10">
+    <RadzenChart>
+        <RadzenLineSeries Smooth="true" Data="@forecasts" CategoryProperty="Date" Title="Температура °C" LineType="LineType.Solid" ValueProperty="TemperatureC">
+            <RadzenMarkers MarkerType="MarkerType.Circle"></RadzenMarkers>
+        </RadzenLineSeries>
+    </RadzenChart>
+</div>
+
+
 @code {
     private WeatherForecast[]? forecasts;
 
