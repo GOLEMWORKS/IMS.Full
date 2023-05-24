@@ -5,16 +5,22 @@
         OnSelectInventory="OnSelectInventory">
     </ViewInventoriesComponent>
 </div>
-@if (invs != null 
-        && invs.Count > 0)
+@if (prodInvs != null
+       && prodInvs.Count > 0)
 {
     <ul style="list-style-type:none">
-        @foreach(var inv in this.invs)
+        @foreach (var prodInvs in this.prodInvs)
         {
-            <li>@inv.InventoryName &nbsp;
+            <li>
+                @prodInvs.Inventory.InventoryName &nbsp;
+                <input type="number" 
+                        min="0" 
+                        max="@prodInvs.Inventory.Quantity" 
+                        @bind-value="prodInvs.InventoryQuantity"
+                        placeholder="Значение"/>
                 <button class="btn btn-link"
                 type="button"
-                @onclick="() => RemoveInv(inv)">
+                @onclick="() => RemoveInv(prodInvs)">
                     Убрать
                 </button>
             </li>
@@ -23,18 +29,20 @@
 }
 
 @code {
-    public List<Inventory> invs = new List<Inventory>();
+    public List<ProductInventory> prodInvs = new List<ProductInventory>();
 
     private void OnSelectInventory(Inventory inventory)
     {
-        if (!invs.Any(x => x.InventoryName.Equals(inventory.InventoryName, StringComparison.OrdinalIgnoreCase)))
+        if (!prodInvs.Any(x => x.Inventory.InventoryName.Equals(inventory.InventoryName, StringComparison.OrdinalIgnoreCase)))
         {
-            this.invs.Add(inventory);
+            this.prodInvs.Add(new ProductInventory { InventoryId = inventory.InventoryId, 
+                                                     Inventory = inventory
+            });
         }
     }
 
-    private void RemoveInv(Inventory invs)
+    private void RemoveInv(ProductInventory prodInvs)
     {
-        this.invs.Remove(invs);
+        this.prodInvs.Remove(prodInvs);
     }
 }

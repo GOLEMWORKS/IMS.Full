@@ -31,9 +31,9 @@
             <InputNumber id="price"
                      @bind-Value="product.ProductPrice"
                          class="form-control"></InputNumber>
-        </div>  
+        </div>
 
-        <ProductInventoriesComponent></ProductInventoriesComponent>
+        <ProductInventoriesComponent @ref="productInventoriesComponent"></ProductInventoriesComponent>
 
         <br/>
         <button type="submit" class="btn btn-primary">Save</button>
@@ -43,6 +43,8 @@
 
 @code {
     private Product? product;
+
+    private ProductInventoriesComponent productInventoriesComponent;
 
     protected override void OnInitialized()
     {
