@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
+
 
 namespace IMS.CoreBusiness
 {
     public class Product
     {
         public int ProductId { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Необходимо укказать наименование!")]
         public string ProductName { get; set; } = string.Empty;
 
         [Range(0, int.MaxValue, ErrorMessage = "Количество не может быть отрицательным!")]

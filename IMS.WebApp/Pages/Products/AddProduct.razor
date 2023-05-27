@@ -14,29 +14,25 @@
 
         <div class="form-group">
             <label for="name">Название продукта</label>
-            <InputText id="name"
-                    @bind-Value="product.ProductName"
-                        class="form-control"></InputText>
+            <InputText id="name" @bind-Value="product.ProductName" class="form-control"></InputText>
         </div>
 
         <div class="form-group">
             <label for="qty">Количество</label>
-            <InputNumber id="qty"
-                   @bind-Value="product.ProductQuantity"
-                       class="form-control"></InputNumber>
+            <InputNumber id="qty" @bind-Value="product.ProductQuantity" class="form-control"></InputNumber>
         </div>
 
         <div class="form-group">
             <label for="price">Цена</label>
-            <InputNumber id="price"
-                     @bind-Value="product.ProductPrice"
-                         class="form-control"></InputNumber>
+            <InputNumber id="price" @bind-Value="product.ProductPrice" class="form-control"></InputNumber>
         </div>
 
-        <ProductInventoriesComponent @ref="productInventoriesComponent"></ProductInventoriesComponent>
-
         <br/>
-        <button type="submit" class="btn btn-primary">Save</button>
+        <button type="submit"
+                class="btn btn-primary">
+            <i class="fa fa-save"></i>
+            &#8203; Сохранить
+        </button>
 
     </EditForm>
 }
@@ -53,7 +49,7 @@
 
     private async Task OnValidSubmit()
     {
-        if(this.product != null)
+        if(product != null)
         {
             await AddProductUseCase.ExecuteAsync(this.product);
             NavigationManager.NavigateTo("/products");
