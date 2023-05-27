@@ -27,6 +27,8 @@
             <InputNumber id="price" @bind-Value="product.ProductPrice" class="form-control"></InputNumber>
         </div>
 
+        <ProductInventoriesComponent @ref="productInventoriesComponent"></ProductInventoriesComponent>
+
         <br/>
         <button type="submit"
                 class="btn btn-primary">
