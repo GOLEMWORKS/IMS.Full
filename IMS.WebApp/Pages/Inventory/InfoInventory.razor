@@ -24,21 +24,22 @@
                     <td>@inventory.InventoryName</td>
                 </tr>
                 <tr>
-                    <th scope="row">Количество</th>
+                    <th scope="row">Количество в комплекте</th>
                     <td>@inventory.Quantity</td>
                 </tr>
                 <tr>
-                    <th scope="row">Цена</th>
+                    <th scope="row">Цена за штуку</th>
                     <td>@inventory.Price.ToString("c", new System.Globalization.CultureInfo("ru-RU"))</td>
+                </tr>
+                <tr>
+                    <th scope="row">Цена за комплект</th>
+                    <td>@String.Format(new System.Globalization.CultureInfo("ru-RU"), "{0:C}", inventory.Price * inventory.Quantity)</td>
                 </tr>
             </tbody>
         </table>
     </div>
 }
 <br />
-@*<RadzenButton Click="@Back" ButtonStyle="ButtonStyle.Secondary"  Icon="arrow_back" Text="Назад" Variant="Variant.Outlined"></RadzenButton>
-<RadzenButton Click="@PrintMe" ButtonStyle="ButtonStyle.Secondary"  Icon="local_printshop" Text="Печать" Variant="Variant.Outlined"></RadzenButton>
-<RadzenButton Click="@RedirectToEdit" ButtonStyle="ButtonStyle.Secondary" Icon="edit" Text="Редактировать" Variant="Variant.Outlined"></RadzenButton>*@
 
 <div class="column">
     <button type="button"

@@ -3,7 +3,7 @@
 @inject IViewInventoriesByNameUseCase ViewInventoriesByNameUseCase
 @inject NavigationManager NavigationManager
 
-<h3>Хранилище склада</h3>
+<h3>Комплектующие</h3>
 <br />
 
 <ViewInventoriesComponent 
@@ -21,9 +21,14 @@
             <Template Context="inventoryRadzen">@inventoryRadzen.InventoryName</Template>
         </RadzenDataGridColumn>
         <RadzenDataGridColumn TItem="Inventory" Property="Quantity" Title="Количество"/>
-        <RadzenDataGridColumn TItem="Inventory" Property="Price" Title="Цена">
+        <RadzenDataGridColumn TItem="Inventory" Property="Price" Title="Цена (Штука)">
             <Template Context="inventoryRadzen">
                 @String.Format(new System.Globalization.CultureInfo("ru-RU"), "{0:C}", inventoryRadzen.Price)
+            </Template>
+        </RadzenDataGridColumn>
+        <RadzenDataGridColumn TItem="Inventory" Filterable="false" Sortable="false" Title="Цена (Комплект)">
+            <Template Context="inventoryRadzen">
+                @String.Format(new System.Globalization.CultureInfo("ru-RU"), "{0:C}", inventoryRadzen.Price * inventoryRadzen.Quantity)
             </Template>
         </RadzenDataGridColumn>
         <RadzenDataGridColumn TItem="Inventory" Context="inventoryRadzen" Filterable="false" Sortable="false" TextAlign="TextAlign.Right" Width="400px">

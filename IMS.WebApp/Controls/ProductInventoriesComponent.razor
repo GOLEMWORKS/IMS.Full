@@ -1,5 +1,5 @@
 ﻿<div class="form-group">
-    <label>Инвентарь</label>
+    <label>Комплектующие</label>
     <ViewInventoriesComponent 
         DisplaySearchResult="true"
         OnSelectInventory="OnSelectInventory">
@@ -16,6 +16,8 @@
                 <input type="number" 
                         min="0" 
                         @bind-value="prodInvs.InventoryQuantity"
+                        @bind-value:event="oninput"
+                        @onchange="OnInventoryQtYChange"
                         placeholder="Значение"/>
                 <button class="btn btn-link"
                 type="button"
@@ -28,9 +30,17 @@
 }
 
 @code {
+    [Parameter]
+    public EventCallback<List<ProductInventory>> OnSelectedInventory { get; set; }
+
     public List<ProductInventory> prodInvs = new List<ProductInventory>();
 
-    private void OnSelectInventory(Inventory inventory)
+    private async Task OnInventoryQtYChange()
+    {
+        await OnSelectedInventory.InvokeAsync(this.prodInvs);
+    }
+
+    private async Task OnSelectInventory(Inventory inventory)
     {
         if (!prodInvs.Any(x => x.Inventory.InventoryName.Equals(inventory.InventoryName, StringComparison.OrdinalIgnoreCase)))
         {
@@ -38,6 +48,8 @@
                                                      Inventory = inventory
             });
         }
+
+        await OnSelectedInventory.InvokeAsync(this.prodInvs);
     }
 
     private void RemoveInv(ProductInventory prodInvs)

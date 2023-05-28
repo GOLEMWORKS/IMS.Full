@@ -27,14 +27,24 @@
             <InputNumber id="price" @bind-Value="product.ProductPrice" class="form-control"></InputNumber>
         </div>
 
-        <ProductInventoriesComponent @ref="productInventoriesComponent"></ProductInventoriesComponent>
+        <ProductInventoriesComponent 
+            @ref="productInventoriesComponent"
+            OnSelectedInventory="OnSelectedInventory"></ProductInventoriesComponent>
 
         <br/>
         <button type="submit"
                 class="btn btn-primary">
-            <i class="fa fa-save"></i>
+                    <i class="fa fa-save"></i>
             &#8203; Сохранить
         </button>
+
+        <button 
+                type="button" 
+                class="btn btn-danger" 
+                @onclick="Back">
+                    <i class="fa fa-close"></i>
+                Отмена
+            </button>
 
     </EditForm>
 }
@@ -43,6 +53,11 @@
     private Product? product;
 
     private ProductInventoriesComponent productInventoriesComponent;
+
+    private void OnSelectedInventory(List<ProductInventory> productInventories)
+    {
+        this.product.ProductInventories = productInventories;
+    }
 
     protected override void OnInitialized()
     {
@@ -53,8 +68,18 @@
     {
         if(product != null)
         {
+            this.productInventoriesComponent.prodInvs.ForEach(x =>
+            {
+                x.ProductId = this.product.ProductId;   
+            });
+
             await AddProductUseCase.ExecuteAsync(this.product);
             NavigationManager.NavigateTo("/products");
         }
+    }
+
+    private void Back()
+    {
+        NavigationManager.NavigateTo("/products");
     }
 }
