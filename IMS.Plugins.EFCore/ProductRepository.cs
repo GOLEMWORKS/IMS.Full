@@ -29,5 +29,12 @@ namespace IMS.Plugins.EFCore
             db.Products.Add(product);
             await db.SaveChangesAsync();
         }
+
+        public async Task<Product> GetProductByIdAsync(int productId)
+        {
+            return await db.Products.Include(x => x.ProductInventories)
+                .ThenInclude(x => x.Inventory)
+                .FirstOrDefaultAsync(x => x.ProductId == productId);
+        }
     }
 }

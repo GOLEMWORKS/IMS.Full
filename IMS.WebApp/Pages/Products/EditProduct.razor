@@ -1,0 +1,70 @@
+﻿@page "/editproduct/{Id:int}"
+
+@inject IViewProductByIdUseCase ViewProductByIdUseCase
+@inject NavigationManager NavigationManager
+
+<h3>Редактирование продукта</h3>
+<br />
+@if (this.product != null)
+{
+    <EditForm Model="product" OnValidSubmit="OnValidSubmit">
+        <DataAnnotationsValidator></DataAnnotationsValidator>
+        <ValidationSummary></ValidationSummary>
+
+        <div class="form-group">
+            <label for="name">Название продукта</label>
+            <InputText id="name" @bind-Value="product.ProductName" class="form-control"></InputText>
+        </div>
+
+        <div class="form-group">
+            <label for="qty">Количество</label>
+            <InputNumber id="qty" @bind-Value="product.ProductQuantity" class="form-control"></InputNumber>
+        </div>
+
+        <div class="form-group">
+            <label for="price">Цена</label>
+            <InputNumber id="price" @bind-Value="product.ProductPrice" class="form-control"></InputNumber>
+        </div>
+
+        <ProductInventoriesComponent 
+            prodInvs="product.ProductInventories"
+            OnSelectedInventory="OnSelectedInventory"></ProductInventoriesComponent>
+
+        <br />
+        <button type="submit"
+                class="btn btn-primary">
+            <i class="fa fa-save"></i>
+            &#8203; Сохранить
+        </button>
+
+        <button type="button"
+                class="btn btn-danger"
+        @onclick="Back">
+            <i class="fa fa-close"></i>
+            Отмена
+        </button>
+
+    </EditForm>
+}
+
+@code {
+    private Product product;
+
+    [Parameter]
+    public int Id { get; set; }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        this.product = await ViewProductByIdUseCase.ExecuteAsync(this.Id);
+    }
+
+    private void OnSelectedInventory(List<ProductInventory> productInventories)
+    {
+        this.product.ProductInventories = productInventories;
+    }
+
+    private void Back()
+    {
+        NavigationManager.NavigateTo("/products");
+    }
+}
