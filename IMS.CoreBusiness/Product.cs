@@ -16,7 +16,7 @@ namespace IMS.CoreBusiness
         [Range(0, double.MaxValue, ErrorMessage = "Цена не может принимать отрицательное значение!")]
         [Product_EnsurePricesGreaterThanInventoriesPrice]
         public double ProductPrice { get; set; }
-
+        public bool IsActive { get; set; } = true;
         public List<ProductInventory>? ProductInventories { get; set; }
 
         public double TotalInventoryCost()
