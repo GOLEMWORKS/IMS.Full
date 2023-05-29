@@ -14,5 +14,6 @@ namespace IMS.UseCases.PluginInterfaces
         Task AddProductAsync(Product product);
         Task<Product> GetProductByIdAsync(int productId);
         Task UpdateProductAsync(Product product);
+        Task DeleteProductAsync(int productId);
     }
 }

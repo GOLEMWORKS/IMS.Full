@@ -52,5 +52,13 @@ namespace IMS.Plugins.EFCore
                 await db.SaveChangesAsync();
             }
         }
+
+        public async Task DeleteProductAsync(int productId)
+        {
+            var prod = db.Products.Where(x => x.ProductId == productId).FirstOrDefault();
+
+            db.Products.Remove(prod);
+            await db.SaveChangesAsync();
+        }
     }
 }

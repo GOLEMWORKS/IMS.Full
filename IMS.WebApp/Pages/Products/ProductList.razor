@@ -1,6 +1,7 @@
 ﻿@page "/products"
 
 @inject NavigationManager NavigationManager
+@inject IDeleteProductUseCase DeleteProductUseCase
 
 <h3>Продукция</h3>
 <br />
@@ -62,9 +63,9 @@
         NavigationManager.NavigateTo($"/editproduct/{invId}");
     }
 
-    public void Delete(int invId)
+    public async Task Delete(int invId)
     {
-
+        await DeleteProductUseCase.ExecuteAsync(invId);
     }
 
     public void Info(int invId)
