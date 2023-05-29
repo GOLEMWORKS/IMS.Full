@@ -36,5 +36,21 @@ namespace IMS.Plugins.EFCore
                 .ThenInclude(x => x.Inventory)
                 .FirstOrDefaultAsync(x => x.ProductId == productId);
         }
+
+        public async Task UpdateProductAsync(Product product)
+        {
+            if(db.Products.Any(x => x.ProductName.Equals(product.ProductName, StringComparison.OrdinalIgnoreCase))) return;
+
+            var prod = await db.Products.FindAsync(product.ProductId);
+            if(prod != null)
+            {
+                prod.ProductName = product.ProductName;
+                prod.ProductPrice = product.ProductPrice;
+                prod.ProductQuantity = product.ProductQuantity;
+                prod.ProductInventories = product.ProductInventories;
+
+                await db.SaveChangesAsync();
+            }
+        }
     }
 }
