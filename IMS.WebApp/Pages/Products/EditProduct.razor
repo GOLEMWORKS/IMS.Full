@@ -1,6 +1,7 @@
 ﻿@page "/editproduct/{Id:int}"
 
 @inject IViewProductByIdUseCase ViewProductByIdUseCase
+@inject IEditProductUseCase EditProductUseCase
 @inject NavigationManager NavigationManager
 
 <h3>Редактирование продукта</h3>
@@ -65,7 +66,8 @@
 
     private void OnValidSubmit()
     {
-        
+        EditProductUseCase.ExecutionAsync(this.product);
+        NavigationManager.NavigateTo("/products");
     }
 
     private void Back()

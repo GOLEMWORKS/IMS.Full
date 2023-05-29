@@ -8,25 +8,38 @@
 @if (prodInvs != null
        && prodInvs.Count > 0)
 {
-    <ul style="list-style-type:none">
-        @foreach (var prodInvs in this.prodInvs)
-        {
-            <li>
-                @prodInvs.Inventory.InventoryName &nbsp;
-                <input type="number" 
-                        min="0" 
+    <table>
+            <thead>
+                <tr>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </thead>
+            <tbody>
+    @foreach (var prodInvs in this.prodInvs)
+    {
+            
+        <tr>
+            <td>@prodInvs.Inventory.InventoryName &nbsp;</td>
+            <td>
+                <input type="number"
+                        min="0"
                         @bind-value="prodInvs.InventoryQuantity"
                         @bind-value:event="oninput"
                         @onchange="OnInventoryQtYChange"
-                        placeholder="Значение"/>
+                        placeholder="Значение" />
+            </td>
+            <td>
                 <button class="btn btn-link"
-                type="button"
-                @onclick="() => RemoveInv(prodInvs)">
+                        type="button"
+                        @onclick="() => RemoveInv(prodInvs)">
                     Убрать
                 </button>
-            </li>
+            </td>
+        </tr>
         }
-    </ul>
+    </tbody>
+    </table>
 }
 
 @code {
