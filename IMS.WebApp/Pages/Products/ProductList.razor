@@ -1,6 +1,5 @@
 ﻿@page "/products"
 
-@inject IDeleteProductUseCase DeleteProductUseCase
 @inject NavigationManager NavigationManager
 
 <h3>Продукция</h3>
@@ -40,7 +39,7 @@
                     </button>
                     <button class="btn btn-danger"
                             type="button"
-                            @onclick="@((args) => Delete(productRadzen))">
+                            @onclick="@((args) => Delete(productRadzen.ProductId))">
                         Удалить
                         <i class="fa fa-trash"></i>
                     </button>
@@ -52,7 +51,6 @@
 
 @code {
     private List<Product>? listProducts;
-    private EventCallback OnProductDeleted { get; set; }
 
     private async Task OnSearchProducts(List<Product> products)
     {
@@ -64,10 +62,9 @@
         NavigationManager.NavigateTo($"/editproduct/{invId}");
     }
 
-    private async Task Delete(Product product)
+    public void Delete(int invId)
     {
-        await DeleteProductUseCase.ExecuteAsync(product.ProductId);
-        await OnProductDeleted.InvokeAsync();
+
     }
 
     public void Info(int invId)
