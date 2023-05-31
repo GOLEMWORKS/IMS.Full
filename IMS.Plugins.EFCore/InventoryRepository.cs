@@ -46,5 +46,13 @@ namespace IMS.Plugins.EFCore
         {
             return await db.Inventories.FindAsync(inventoryId);
         }
+
+        public async Task DeleteInventoryAsync(int productId)
+        {
+            var invs = db.Inventories.Where(x => x.InventoryId == productId).FirstOrDefault();
+
+            db.Inventories.Remove(invs);
+            await db.SaveChangesAsync();
+        }
     }
 }

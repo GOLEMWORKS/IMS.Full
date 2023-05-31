@@ -1,17 +1,23 @@
 ﻿@page "/"
 
-<PageTitle>Index</PageTitle>
+<PageTitle>Главная</PageTitle>
 
-<h1>Hello, world!</h1>
-
-Welcome to your new app.
-
-<SurveyPrompt Title="How is Blazor working for you?" />
-
-
-<p class="text-black">@TimeSpan.FromSeconds(counter)</p>
-<button class="btn btn-success" @onclick="StartTimer">Start</button>
-
+<h2 class="text-center">Курсовая работа Коротких Владимира ИСР21-1</h2>
+<h3>Техническая записка: <a href="../stuff/static/kursa4norm.docm" download><i class="fa fa-file"></i></a></h3>
+<ul class="list-group-numbered">
+    <li>
+        Blazor Server (.NET 6)
+    </li>
+    <li>
+        Radzen framework
+    </li>
+    <li>
+        Entity Framework 6
+    </li>
+    <li>
+        Clean architecture
+    </li>
+</ul>
 @code {
     private static System.Timers.Timer aTimer;
     private double counter = 360;
