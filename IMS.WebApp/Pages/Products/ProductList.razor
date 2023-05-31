@@ -2,6 +2,7 @@
 
 @inject NavigationManager NavigationManager
 @inject IDeleteProductUseCase DeleteProductUseCase
+@inject IViewProductsByNameUseCase ViewproductsByNameUseCasse
 
 <h3>Продукция</h3>
 <br />
@@ -12,7 +13,8 @@
                   AllowSorting="true"
                   AllowPaging="true"
                   PageSize="5"
-                  ShowPagingSummary="true">
+                  ShowPagingSummary="true"
+                  IsLoading="false">
     <Columns>
         <RadzenDataGridColumn TItem="Product" Property="ProductName" Title="Наименование">
             <Template Context="productRadzen">@productRadzen.ProductName</Template>
@@ -51,6 +53,7 @@
 </RadzenDataGridRU>
 
 @code {
+
     private List<Product>? listProducts;
 
     private async Task OnSearchProducts(List<Product> products)
@@ -63,14 +66,15 @@
         NavigationManager.NavigateTo($"/editproduct/{invId}");
     }
 
-    public async Task Delete(int invId)
+    public void Delete(int invId)
     {
-        await DeleteProductUseCase.ExecuteAsync(invId);
+        //await DeleteProductUseCase.ExecuteAsync(invId);
+        NavigationManager.NavigateTo($"/deleteprod/{invId}");
     }
 
     public void Info(int invId)
     {
-        NavigationManager.NavigateTo($"/infoproduct/{invId}");
+        NavigationManager.NavigateTo($"/infoproduct/{invId}");  
     }
 
     public void NavigateToAddProduct()

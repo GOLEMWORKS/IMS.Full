@@ -1,0 +1,46 @@
+﻿@page "/deleteprod/{Id:int}"
+
+@inject IViewProductByIdUseCase ViewProductByIdUseCase
+@inject NavigationManager NavigationManager
+@inject IDeleteProductUseCase DeleteProductUseCase
+
+<h3>Подтвердите действие</h3>
+<h5> Все данные о продукте @product.ProductName будут удалены и не подлежат восстановлению.
+    Нажмите на кнопку "<i class="fa fa-trash"></i> Удалить" для подтверждения действия.
+</h5>
+
+<button type="button"
+        class="btn btn-danger"
+        @onclick="@((args) => Delete(product.ProductId))">
+    <i class="fa fa-trash"></i>
+    &#8203; Удалить
+</button>
+<button type="button"
+        class="btn btn-danger"
+@onclick="Back">
+    <i class="fa fa-close"></i>
+    Отмена
+</button>
+
+@code {
+    private Product? product;
+
+    [Parameter]
+    public int Id { get; set; }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        this.product = await ViewProductByIdUseCase.ExecuteAsync(this.Id);
+    }
+
+    private void Back()
+    {
+        NavigationManager.NavigateTo("/products");
+    }
+
+    public async Task Delete(int invId)
+    {
+        await DeleteProductUseCase.ExecuteAsync(invId);
+        Back();
+    }
+}
