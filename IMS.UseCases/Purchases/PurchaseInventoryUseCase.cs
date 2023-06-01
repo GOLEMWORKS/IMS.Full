@@ -10,7 +10,7 @@ namespace IMS.UseCases.Purchases
     {
         public async Task ExecuteAsync(string poNumber, int inventoryId, int quantity)
         {
-
+            //6.21
         }
     }
 }
