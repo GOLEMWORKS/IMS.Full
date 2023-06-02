@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.16" />
+    <PackageReference Include="Microsoft.NET.Build.Containers" Version="7.0.302" />
   </ItemGroup>
 
   <ItemGroup>
