@@ -10,13 +10,14 @@ namespace IMS.CoreBusiness
         [Required(ErrorMessage = "Необходимо укказать наименование!")]
         public string ProductName { get; set; } = string.Empty;
 
-        [Range(0, int.MaxValue, ErrorMessage = "Количество не может быть отрицательным!")]
+        [Range(1, int.MaxValue, ErrorMessage = "Количество не может быть отрицательным или равным нулю!")]
         public int ProductQuantity { get; set; }
 
-        [Range(0, double.MaxValue, ErrorMessage = "Цена не может принимать отрицательное значение!")]
+        [Range(1, double.MaxValue, ErrorMessage = "Цена не может принимать отрицательное или нулевое значение!")]
         [Product_EnsurePricesGreaterThanInventoriesPrice]
         public double ProductPrice { get; set; }
 
+        [Required(ErrorMessage = "Нельзя создать продукт без комплектующих!")]
         public List<ProductInventory>? ProductInventories { get; set; }
 
         public double TotalInventoryCost()
