@@ -13,6 +13,7 @@ using IMS.UseCases.Interfaces;
 using IMS.UseCases.Products;
 using IMS.UseCases;
 using Radzen;
+using IMS.UseCases.Purchases;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -52,6 +53,10 @@ builder.Services.AddScoped<DialogService>();
 builder.Services.AddScoped<NotificationService>();
 builder.Services.AddScoped<TooltipService>();
 builder.Services.AddScoped<ContextMenuService>();
+
+
+builder.Services.AddTransient<IPurchaseInventoryUseCase, PurchaseInventoryUseCase>();
+
 
 builder.Services.AddServerSideBlazor()
     .AddHubOptions(options =>

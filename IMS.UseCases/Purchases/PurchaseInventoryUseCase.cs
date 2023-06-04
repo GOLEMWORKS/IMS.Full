@@ -1,4 +1,7 @@
-﻿using System;
+﻿using IMS.CoreBusiness;
+using IMS.UseCases.Interfaces;
+using IMS.UseCases.PluginInterfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,11 +9,17 @@ using System.Threading.Tasks;
 
 namespace IMS.UseCases.Purchases
 {
-    public class PurchaseInventoryUseCase
+    public class PurchaseInventoryUseCase : IPurchaseInventoryUseCase
     {
-        public async Task ExecuteAsync(string poNumber, int inventoryId, int quantity)
+        private readonly IInventoryTransactionRepository inventoryTransactionRepository;
+
+        public PurchaseInventoryUseCase(IInventoryTransactionRepository inventoryTransactionRepository)
         {
-            //6.21
+            this.inventoryTransactionRepository = inventoryTransactionRepository;
+        }
+        public async Task ExecuteAsync(string poNumber, Inventory inventory, int quantity, string DoneBy)
+        {
+            await this.inventoryTransactionRepository.PurchaseAsync(poNumber, inventory, quantity, inventory.Price, DoneBy);
         }
     }
 }

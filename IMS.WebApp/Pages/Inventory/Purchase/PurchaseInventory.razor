@@ -1,6 +1,8 @@
 ﻿@page  "/purchase"
 
-<PageTitle> Заказ комплектующих</PageTitle>
+@inject IPurchaseInventoryUseCase PurchaseInventoryUseCase
+
+<PageTitle> Заказ комплектующих </PageTitle>
 <h3>Покупка комплектующих</h3>
 <br />
 
@@ -23,13 +25,18 @@
             </ViewInventoriesComponent>
             <InputText id="inv" class="form-control" @bind-Value="purchaseViewModel.InventoryName" disabled></InputText>
             <input type="hidden" value="@purchaseViewModel.InventoryId" />
+            @if (selectedInventory != null)
+            {
+                <text>Стоимость: </text>
+                @selectedInventory?.Price.ToString("c");
+            }
         </div>
 
         <div class="form-group">
             <label for="qty">Количество</label>
             <InputNumber id="qty" @bind-Value="purchaseViewModel.QuantityToPurchase" class="form-control">Заказ</InputNumber>
         </div>
-        <br /   >
+        <br />
         <button type="submit" class="btn btn-primary">
             <i class="fa fa-save"></i>
             Сохранить
@@ -50,8 +57,12 @@
         purchaseViewModel.InventoryName = inventory.InventoryName;
     }
 
-    private void OnValidSubmit()
+    private async Task OnValidSubmit()
     {
-        
+        await PurchaseInventoryUseCase.ExecuteAsync( 
+                this.purchaseViewModel.PurchaseOrder,
+                this.selectedInventory,
+                this.purchaseViewModel.QuantityToPurchase,
+                "Vova");//Изменить после имплементации логирования
     }
 }

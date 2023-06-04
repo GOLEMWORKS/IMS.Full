@@ -13,5 +13,6 @@ namespace IMS.WebApp.ViewModels
         [Required]
         [Range(minimum:1, maximum: int.MaxValue, ErrorMessage = "Минимальное количество для оформления заказа: 1")]
         public int QuantityToPurchase { get; set; }
+        public double InventoryPrice { get; set; }
     }
 }
