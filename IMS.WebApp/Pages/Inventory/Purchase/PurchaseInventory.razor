@@ -1,6 +1,7 @@
 ﻿@page  "/purchase"
 
 @inject IPurchaseInventoryUseCase PurchaseInventoryUseCase
+@inject NavigationManager NavigationManager
 
 <PageTitle> Заказ комплектующих </PageTitle>
 <h3>Покупка комплектующих</h3>
@@ -64,5 +65,7 @@
                 this.selectedInventory,
                 this.purchaseViewModel.QuantityToPurchase,
                 "Vova");//Изменить после имплементации логирования
+
+        NavigationManager.NavigateTo("/inventories");
     }
 }

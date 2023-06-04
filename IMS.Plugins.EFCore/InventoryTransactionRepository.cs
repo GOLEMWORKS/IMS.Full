@@ -27,7 +27,8 @@ namespace IMS.Plugins.EFCore
                     InventoryType = InventoryTransactionType.PurchaseInventory,
                     QuantityAfter = inventory.Quantity + quantity,
                     TransactionDate = DateTime.Now,
-                    DoneBy = doneBy
+                    DoneBy = doneBy,
+                    Cost = inventoryPrice * quantity
             });
             await this.db.SaveChangesAsync();
         }

@@ -19,8 +19,9 @@ namespace IMS.CoreBusiness
         public InventoryTransactionType InventoryType { get; set; }
         [Required]
         public int QuantityAfter { get; set; }
-        public string POnumber { get; set; }
-        public string ProductionNumber { get; set; }
+        public string? POnumber { get; set; }
+        public string? ProductionNumber { get; set; }
+        public double? Cost { get; set; }
         [Required]
         public DateTime TransactionDate { get; set; }
         [Required]
