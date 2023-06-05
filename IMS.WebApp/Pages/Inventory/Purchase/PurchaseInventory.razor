@@ -29,7 +29,7 @@
             @if (selectedInventory != null)
             {
                 <text>Стоимость: </text>
-                @selectedInventory?.Price.ToString("c");
+                @selectedInventory?.Price.ToString("c", new System.Globalization.CultureInfo("ru-RU"));
             }
         </div>
 

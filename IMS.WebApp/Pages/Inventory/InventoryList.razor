@@ -29,7 +29,7 @@
                 @String.Format(new System.Globalization.CultureInfo("ru-RU"), "{0:C}", inventoryRadzen.Price)
             </Template>
         </RadzenDataGridColumn>
-        <RadzenDataGridColumn TItem="Inventory" Filterable="false" Sortable="false" Title="Цена (Комплект)">
+        <RadzenDataGridColumn TItem="Inventory" Filterable="false" Sortable="false" Title="Цена (Общая)">
             <Template Context="inventoryRadzen">
                 @String.Format(new System.Globalization.CultureInfo("ru-RU"), "{0:C}", inventoryRadzen.Price * inventoryRadzen.Quantity)
             </Template>
