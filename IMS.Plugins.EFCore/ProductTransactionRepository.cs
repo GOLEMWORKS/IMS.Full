@@ -20,10 +20,7 @@ namespace IMS.Plugins.EFCore
         
         public async Task ProduceAsync(string productionNumber, Product product, int quantity, double price, string doneBy)
         {
-            var prod = await db.Products
-                .Include(x => x.ProductInventories)
-                .ThenInclude(x => x.Inventory)
-                .FirstOrDefaultAsync(x => x.ProductId == product.ProductId);
+            var prod = await this.productRepository.GetProductByIdAsync(product.ProductId);
 
             if (prod != null)
             {
