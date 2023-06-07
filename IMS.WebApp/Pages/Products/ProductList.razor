@@ -68,19 +68,19 @@
         this.listProducts = prods.ToList();
     }
 
-    public void RedirectToEdit(int invId)
+    public void RedirectToEdit(int prodId)
     {
-        NavigationManager.NavigateTo($"/editproduct/{invId}");
+        NavigationManager.NavigateTo($"/editproduct/{prodId}");
     }
 
-    public void Delete(int invId)
+    public void Delete(int prodId)
     {
-        NavigationManager.NavigateTo($"/deleteprod/{invId}");
+        NavigationManager.NavigateTo($"/deleteprod/{prodId}");
     }
 
-    public void Info(int invId)
+    public void Info(int prodId)
     {
-        NavigationManager.NavigateTo($"/infoproduct/{invId}");  
+        NavigationManager.NavigateTo($"/infoproduct/{prodId}");
     }
 
     public void NavigateToAddProduct()

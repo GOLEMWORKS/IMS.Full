@@ -1,0 +1,30 @@
+﻿<RadzenDataGridRU 
+    Data="@prodInvs" 
+    TItem="ProductInventory"
+    AllowPaging="true" 
+    PageSize="10"
+    ShowPagingSummary="true">
+
+    <Columns>
+        <RadzenDataGridColumn TItem="ProductInventory" Title="Наименование">
+            <Template Context="inventoryRadzen">@inventoryRadzen.Inventory.InventoryName</Template>
+        </RadzenDataGridColumn>
+        <RadzenDataGridColumn TItem="ProductInventory" Title="Количество в продукте">
+            <Template Context="inventoryRadzen">@inventoryRadzen.InventoryQuantity</Template>
+        </RadzenDataGridColumn>
+        <RadzenDataGridColumn TItem="ProductInventory" Title="Цена за штуку">
+            <Template Context="inventoryRadzen">@inventoryRadzen.Inventory.Price.ToString("c", new System.Globalization.CultureInfo("ru-RU"))</Template>
+        </RadzenDataGridColumn>
+        <RadzenDataGridColumn TItem="ProductInventory" Title="Цена за весь комплект">
+            <Template Context="inventoryRadzen">
+                @String.Format(new System.Globalization.CultureInfo("ru-RU"), "{0:C}", inventoryRadzen.Inventory.Price * inventoryRadzen.InventoryQuantity)
+            </Template>
+        </RadzenDataGridColumn>
+    </Columns>
+</RadzenDataGridRU>
+
+
+@code {
+    [Parameter]
+    public List<ProductInventory> prodInvs { get; set; } = new List<ProductInventory>();
+}
