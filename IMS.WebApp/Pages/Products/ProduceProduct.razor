@@ -1,7 +1,9 @@
 ﻿@page "/produce"
 
 @inject IProduceProductUseCase ProduceProductUseCase
+@inject IValidateEnoughInventoriesForProducingUseCase ValidateEnoughInventoriesForProducingUseCase
 
+<ErrorMessageComponent ErrorMessage="@errorMessage"></ErrorMessageComponent>
 <PageTitle>Сборка</PageTitle>
 <h3>Производство продукта</h3>
 
@@ -53,11 +55,25 @@
 @code {
     private ProduceViewModel produceViewModel = new ProduceViewModel();
     private Product selectedProduct;
+    private string errorMessage;
 
     private bool validPurchase = false;
 
     private async Task OnValidSubmit()
     {
+        if (!await ValidateEnoughInventoriesForProducingUseCase.ExecuteAsync(
+                this.selectedProduct,
+                this.produceViewModel.QuantityToProduce
+        ))
+        {
+            errorMessage = $"Недостаточно комплектующих для сборки продукта {this.selectedProduct.ProductName} {this.produceViewModel.QuantityToProduce} раз(а).";
+            return;
+        } 
+        else
+        {
+            errorMessage = string.Empty;
+        }
+
         await ProduceProductUseCase.ExecuteAsync(
                 this.produceViewModel.ProductionNumber,
                 this.selectedProduct,

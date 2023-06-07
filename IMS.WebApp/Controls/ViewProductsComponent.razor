@@ -1,4 +1,5 @@
 ﻿@using IMS.CoreBusiness
+
 @inject IViewProductsByNameUseCase ViewProductsByNameUseCase
 @inject NavigationManager NavigationManager
 
@@ -7,6 +8,7 @@
         class="form-control"
         placeholder="Введите наименование"
         @bind-value="productNameToSearch"
+        @bind-value:event="oninput"
         @onkeyup="Enter"/>
 
     <div class="btn-group">
@@ -45,7 +47,20 @@
 }
     
 @code {
-    private string? productNameToSearch;
+    private string? _productNameToSearch;
+    public string? productNameToSearch
+    {
+        get => _productNameToSearch;
+        set
+        {
+            _productNameToSearch = value;
+            if (!string.IsNullOrWhiteSpace(_productNameToSearch) &&
+                    _productNameToSearch.Length > 2)
+            {
+                ViewProducts();
+            }
+        }
+    }
 
     private List<Product>? _products;
     private Product? selectedProduct;
