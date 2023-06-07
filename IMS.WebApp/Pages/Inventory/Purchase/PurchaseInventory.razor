@@ -14,7 +14,7 @@
         <ValidationSummary></ValidationSummary>
 
         <div class="form-group">
-            <label for="po">Заказ</label>
+            <label for="po">Номер заказа</label>
             <InputText id="po" @bind-Value="purchaseViewModel.PurchaseOrder" class="form-control">Заказ</InputText>
         </div>
 
@@ -39,17 +39,25 @@
         </div>
         <br />
         <button type="submit" class="btn btn-primary">
-            <i class="fa fa-save"></i>
-            Сохранить
+            <i class="fa fa-dollar"></i>
+            Приобрести
         </button>
         
     </EditForm>
+}
+
+@if(validPurchase){
+    <RadzenAlert AllowClose="true" AlertStyle="AlertStyle.Success" Variant="Variant.Flat" Shade="Shade.Lighter">
+        Покупка произведена успешно!
+    </RadzenAlert>
 }
 
 @code {
     private PurchaseViewModel purchaseViewModel = new PurchaseViewModel();
 
     private Inventory selectedInventory;
+
+    private bool validPurchase = false;
 
     private void OnSelectInventory(Inventory inventory)
     {
@@ -65,7 +73,8 @@
                 this.selectedInventory,
                 this.purchaseViewModel.QuantityToPurchase,
                 "Vova");//Изменить после имплементации логирования
-
-        NavigationManager.NavigateTo("/inventories");
+        validPurchase = true;
+        this.purchaseViewModel = new PurchaseViewModel();
+        this.selectedInventory = null;
     }
 }

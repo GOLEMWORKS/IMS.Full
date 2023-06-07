@@ -31,11 +31,11 @@
         && _inventories != null
         && selectedInventory == null)
 {
-    <div style="overflow-y: auto; max-height: 300px;">
+    <div style="overflow-y: auto; max-height: 300px; border: 1px solid silver; padding-top: 3px;">
         <ul style="list-style-type:none">
             @foreach (var inv in _inventories)
             {
-                <li style="cursor:pointer"
+                <li style="cursor:pointer;"
                     @onclick="@(async() => {await SelectInventory(inv); })"
                     @key="inv.InventoryId">
                     @inv.InventoryName

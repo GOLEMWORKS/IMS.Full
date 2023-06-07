@@ -14,6 +14,7 @@ using IMS.UseCases.Products;
 using IMS.UseCases;
 using Radzen;
 using IMS.UseCases.Purchases;
+using IMS.UseCases.Produces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -43,12 +44,17 @@ builder.Services.AddTransient<IAddInventoryUseCase, AddInventoryUseCase>();
 builder.Services.AddTransient<IEditInventoryUseCase, EditInventoryUseCase>();
 builder.Services.AddTransient<IViewInventoriesByIdUseCase,  ViewInventoriesByIdUseCase>();
 builder.Services.AddTransient<IDeleteInventoryUseCase, DeleteInventoryUseCase>();
+builder.Services.AddTransient<IPurchaseInventoryUseCase, PurchaseInventoryUseCase>();
 
 builder.Services.AddTransient<IViewProductsByNameUseCase, ViewProductsByNameUseCase>();
 builder.Services.AddTransient<IAddProductUseCase, AddProductUseCase>();
 builder.Services.AddTransient<IViewProductByIdUseCase, ViewProductByIdUseCase>();
 builder.Services.AddTransient<IEditProductUseCase, EditProductUseCase>();
 builder.Services.AddTransient<IDeleteProductUseCase, DeleteProductUseCase>();
+builder.Services.AddTransient<IProduceProductUseCase, ProduceProductUseCase>();
+
+builder.Services.AddTransient<IValidateEnoughInventoriesForProducingUseCase, ValidateEnoughInventoriesForProducingUseCase>();
+
 
 builder.Services.AddScoped<DialogService>();
 builder.Services.AddScoped<NotificationService>();
@@ -56,7 +62,6 @@ builder.Services.AddScoped<TooltipService>();
 builder.Services.AddScoped<ContextMenuService>();
 
 
-builder.Services.AddTransient<IPurchaseInventoryUseCase, PurchaseInventoryUseCase>();
 
 
 builder.Services.AddServerSideBlazor()
