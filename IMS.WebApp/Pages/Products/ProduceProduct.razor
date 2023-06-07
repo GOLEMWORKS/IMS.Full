@@ -1,0 +1,79 @@
+﻿@page "/produce"
+
+@inject IProduceProductUseCase ProduceProductUseCase
+
+<PageTitle>Сборка</PageTitle>
+<h3>Производство продукта</h3>
+
+@if (produceViewModel != null)
+{
+    <EditForm Model="produceViewModel" OnValidSubmit="OnValidSubmit">
+        <DataAnnotationsValidator></DataAnnotationsValidator>
+        <ValidationSummary></ValidationSummary>
+
+        <div class="form-group">
+            <label for="po">Номер заказа</label>
+            <InputText id="po" @bind-Value="produceViewModel.ProductionNumber" class="form-control">Заказ</InputText>
+        </div>
+
+        <div class="form-group">
+            <label for="inv">Продукт</label>
+            <ViewProductsComponent OnSelectProduct="OnSelectProduct"
+                                      DisplaySearchResult="true">
+            </ViewProductsComponent>
+            <InputText id="inv" class="form-control" @bind-Value="produceViewModel.ProductName" disabled></InputText>
+            <input type="hidden" value="@produceViewModel.ProductId" />
+            @if (selectedProduct != null)
+            {
+                <text>Стоимость: </text>
+                @selectedProduct?.ProductPrice.ToString("c", new System.Globalization.CultureInfo("ru-RU"));
+            }
+        </div>
+
+        <div class="form-group">
+            <label for="qty">Количество</label>
+            <InputNumber id="qty" @bind-Value="produceViewModel.QuantityToProduce" class="form-control">Заказ</InputNumber>
+        </div>
+        <br />
+        <button type="submit" class="btn btn-primary">
+            <i class="fa fa-cog"></i>
+            Собрать
+        </button>
+
+    </EditForm>
+}
+
+@if (validPurchase)
+{
+    <RadzenAlert AllowClose="true" AlertStyle="AlertStyle.Success" Variant="Variant.Flat" Shade="Shade.Lighter">
+        Сборка продукта произведена успешно!
+    </RadzenAlert>
+}
+
+@code {
+    private ProduceViewModel produceViewModel = new ProduceViewModel();
+    private Product selectedProduct;
+
+    private bool validPurchase = false;
+
+    private async Task OnValidSubmit()
+    {
+        await ProduceProductUseCase.ExecuteAsync(
+                this.produceViewModel.ProductionNumber,
+                this.selectedProduct,
+                this.produceViewModel.QuantityToProduce,
+                "Vova" //Изменить после имплементации логирования
+        );
+
+        validPurchase = true;
+        this.produceViewModel = new ProduceViewModel();
+        this.selectedProduct = null;
+    }
+
+    public void OnSelectProduct(Product product)
+    {
+        this.selectedProduct = product;
+        produceViewModel.ProductId = product.ProductId;
+        produceViewModel.ProductName = product.ProductName;
+    }
+}

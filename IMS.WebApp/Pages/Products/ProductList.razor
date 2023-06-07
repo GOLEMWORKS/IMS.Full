@@ -2,7 +2,7 @@
 
 @inject NavigationManager NavigationManager
 @inject IDeleteProductUseCase DeleteProductUseCase
-@inject IViewProductsByNameUseCase ViewproductsByNameUseCasse
+@inject IViewProductsByNameUseCase ViewproductsByNameUseCase
 
 <PageTitle> Продукция список</PageTitle>
 <h3>Продукция</h3>
@@ -60,6 +60,12 @@
     private async Task OnSearchProducts(List<Product> products)
     {
         this.listProducts = products;
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        var prods = await ViewproductsByNameUseCase.ExecuteAsync("");
+        this.listProducts = prods.ToList();
     }
 
     public void RedirectToEdit(int invId)
