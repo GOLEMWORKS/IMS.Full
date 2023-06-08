@@ -1,8 +1,11 @@
 ﻿@page "/sellproduct"
 
+@inject ISellProductUseCase SellProductUseCase
+
 <PageTitle>Продажа </PageTitle>
 <h3>Продажа продукта</h3>
 
+<ErrorMessageComponent ErrorMessage="@errorMessage"></ErrorMessageComponent>
 @if (sellViewModel != null)
 {
     <EditForm Model="sellViewModel" OnValidSubmit="OnValidSubmit">
@@ -21,22 +24,22 @@
             </ViewProductsComponent>
             <InputText id="inv" class="form-control" @bind-Value="sellViewModel.ProductName" disabled></InputText>
             <input type="hidden" value="@sellViewModel.ProductId" />
-            @if (selectedProduct != null)
-            {
-                <text>Стоимость: </text>
-                @selectedProduct?.ProductPrice.ToString("c", new System.Globalization.CultureInfo("ru-RU"))
-                ;
-            }
+            
+        </div>
+
+        <div class="form-group">
+            <label for="qty">Цена</label>
+            <InputNumber id="qty" @bind-Value="sellViewModel.ProductPrice" class="form-control"></InputNumber>
         </div>
 
         <div class="form-group">
             <label for="qty">Количество</label>
-            <InputNumber id="qty" @bind-Value="sellViewModel.QuantityToSell" class="form-control">Заказ</InputNumber>
+            <InputNumber id="qty" @bind-Value="sellViewModel.QuantityToSell" class="form-control"></InputNumber>
         </div>
         <br />
         <button type="submit" class="btn btn-primary">
-            <i class="fa fa-cog"></i>
-            Собрать
+            <i class="fa fa-dollar"></i>
+            Продать
         </button>
 
     </EditForm>
@@ -45,10 +48,30 @@
 @code {
     public SellViewModel sellViewModel = new SellViewModel();
     public Product selectedProduct;
+    private string errorMessage;
 
     private void OnValidSubmit()
     {
+        if (this.selectedProduct.ProductQuantity < this.sellViewModel.QuantityToSell)
+        {
+            this.errorMessage = $"Количество продуктов не хватает для продажи. В данный момент присутствует всего {this.selectedProduct.ProductQuantity} единиц!";
+            return;
+        }
+        else
+        {
+            this.errorMessage = string.Empty;
+        }
 
+        SellProductUseCase.ExecuteAsync(
+            this.sellViewModel.SalesOrderNumber,
+            this.selectedProduct,
+            this.sellViewModel.QuantityToSell,
+            "Vova" //Изменить после имплементации логирования
+        );
+
+        this.sellViewModel = new SellViewModel();
+        this.selectedProduct = null;
+        this.errorMessage = string.Empty;
     }
 
     private void OnSelectProduct(Product product)
@@ -56,5 +79,6 @@
         this.selectedProduct = product;
         sellViewModel.ProductId = product.ProductId;
         sellViewModel.ProductName = product.ProductName;
+        sellViewModel.ProductPrice = product.ProductPrice;
     }
 }

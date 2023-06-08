@@ -10,7 +10,7 @@ namespace IMS.CoreBusiness
         [Required(ErrorMessage = "Необходимо укказать наименование!")]
         public string ProductName { get; set; } = string.Empty;
 
-        [Range(1, int.MaxValue, ErrorMessage = "Количество не может быть отрицательным или равным нулю!")]
+        [Range(0, int.MaxValue, ErrorMessage = "Количество не может быть отрицательным!")]
         public int ProductQuantity { get; set; }
 
         [Range(1, double.MaxValue, ErrorMessage = "Цена не может принимать отрицательное или нулевое значение!")]
