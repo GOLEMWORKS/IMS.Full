@@ -15,6 +15,7 @@ using Radzen;
 using IMS.UseCases.Purchases;
 using IMS.UseCases.Produces;
 using IMS.UseCases.Inventories.Validators;
+using IMS.UseCases.Reports;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -57,6 +58,7 @@ builder.Services.AddTransient<ISellProductUseCase, SellProductUseCase>();
 
 builder.Services.AddTransient<IValidateEnoughInventoriesForProducingUseCase, ValidateEnoughInventoriesForProducingUseCase>();
 
+builder.Services.AddTransient<ISearchInventoryTransactionsUseCase, SearchInventoryTransactionsUseCase>();
 
 builder.Services.AddScoped<DialogService>();
 builder.Services.AddScoped<NotificationService>();
