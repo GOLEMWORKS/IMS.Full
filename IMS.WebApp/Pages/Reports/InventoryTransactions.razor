@@ -2,7 +2,7 @@
 
 @inject ISearchInventoryTransactionsUseCase SearchInventoryTransactionsUseCase
 
-<h3>Inventory Transaction</h3>
+<h3>Транзакции комплектующих</h3>
 <br />
 
 <div class="row">
@@ -83,22 +83,16 @@
     private string invName;
     private DateTime? dateFrom;
     private DateTime? dateTo;
-    private int activityTypeId;
+    private InventoryTransactionType? activityTypeId;
     private IEnumerable<InventoryTransaction> inventoryTransactions;
 
     private async Task searchInventories()
     {
-        InventoryTransactionType? activityType = null;
-        if (activityTypeId != 0)
-        {
-            activityType = (InventoryTransactionType)activityTypeId;
-        }
-
         inventoryTransactions = await SearchInventoryTransactionsUseCase.ExecuteAsync(
             invName,
             dateFrom,
             dateTo,
-            activityType
+            activityTypeId
         );
     }
 }
