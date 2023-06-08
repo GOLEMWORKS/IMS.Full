@@ -44,5 +44,21 @@ namespace IMS.Plugins.EFCore
 
             await this.db.SaveChangesAsync();
         }
+
+        public async Task SellProductAsync(string salesOrderNumber, Product product, int quantity, double price, string doneDy)
+        {
+            this.db.ProductTransactions.Add(new ProductTransaction
+            {
+                SalesOrderNumber = salesOrderNumber,
+                ProductId = product.ProductId,
+                QuantityBefore = product.ProductQuantity,
+                QuantityAfter = product.ProductQuantity - quantity,
+                TransactionDate = DateTime.Now,
+                DoneBy = doneDy,
+                UnitPrice = price
+            });
+
+            await this.db.SaveChangesAsync();
+        }
     }
 }

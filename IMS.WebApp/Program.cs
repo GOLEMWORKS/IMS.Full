@@ -53,6 +53,7 @@ builder.Services.AddTransient<IViewProductByIdUseCase, ViewProductByIdUseCase>()
 builder.Services.AddTransient<IEditProductUseCase, EditProductUseCase>();
 builder.Services.AddTransient<IDeleteProductUseCase, DeleteProductUseCase>();
 builder.Services.AddTransient<IProduceProductUseCase, ProduceProductUseCase>();
+builder.Services.AddTransient<ISellProductUseCase, SellProductUseCase>();
 
 builder.Services.AddTransient<IValidateEnoughInventoriesForProducingUseCase, ValidateEnoughInventoriesForProducingUseCase>();
 
