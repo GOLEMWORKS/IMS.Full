@@ -11,10 +11,10 @@ using IMS.UseCases.PluginInterfaces;
 using IMS.UseCases.Inventories;
 using IMS.UseCases.Interfaces;
 using IMS.UseCases.Products;
-using IMS.UseCases;
 using Radzen;
 using IMS.UseCases.Purchases;
 using IMS.UseCases.Produces;
+using IMS.UseCases.Inventories.Validators;
 
 var builder = WebApplication.CreateBuilder(args);
 
