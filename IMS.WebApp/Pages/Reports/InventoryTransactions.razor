@@ -24,9 +24,9 @@
         <div class="col">
             <label for="at">Тип транзакции</label>
                 <select id="at" class="form-control" @bind="activityTypeId">
-                    <option id="0"></option>
-                    <option id="1">Покупка комплектующих</option>
-                    <option id="2">Сборка продуктов</option>
+                    <option value="0"></option>
+                    <option value="1">Покупка комплектующих</option>
+                    <option value="2">Сборка продуктов</option>
                 </select>
         </div>
 
@@ -51,15 +51,14 @@
                 <th>Транзакция</th>
                 <th>К-во до</th>
                 <th>К-во после</th>
-                <th>Номер #</th>
-                <th>Продукция #</th>
+                <th>Заказ</th>
             </tr>
         </thead>
         <tbody>
             @foreach (var item in inventoryTransactions)
             {
                 <tr>
-                    <td>@item.TransactionDate.ToString("dd/mm/yyyy")</td>
+                    <td>@item.TransactionDate.ToString("hh/mm dd/MM/yyyy")</td>
                     <td>@item.inventory.InventoryName</td>
                     <td>
                         @if (item.InventoryType == InventoryTransactionType.PurchaseInventory)
@@ -83,16 +82,21 @@
     private string invName;
     private DateTime? dateFrom;
     private DateTime? dateTo;
-    private InventoryTransactionType? activityTypeId;
+    private int activityTypeId = 0;
     private IEnumerable<InventoryTransaction> inventoryTransactions;
 
     private async Task searchInventories()
     {
+        InventoryTransactionType? inventoryTransactionType = null;
+        if (activityTypeId != 0)
+        {
+            inventoryTransactionType = (InventoryTransactionType)activityTypeId;
+        }
+
         inventoryTransactions = await SearchInventoryTransactionsUseCase.ExecuteAsync(
             invName,
             dateFrom,
             dateTo,
-            activityTypeId
-        );
+            inventoryTransactionType);
     }
 }
