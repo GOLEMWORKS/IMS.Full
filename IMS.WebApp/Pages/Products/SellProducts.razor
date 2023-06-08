@@ -1,0 +1,60 @@
+﻿@page "/sellproduct"
+
+<PageTitle>Продажа </PageTitle>
+<h3>Продажа продукта</h3>
+
+@if (sellViewModel != null)
+{
+    <EditForm Model="sellViewModel" OnValidSubmit="OnValidSubmit">
+        <DataAnnotationsValidator></DataAnnotationsValidator>
+        <ValidationSummary></ValidationSummary>
+
+        <div class="form-group">
+            <label for="po">Номер заказа</label>
+            <InputText id="po" @bind-Value="sellViewModel.SalesOrderNumber" class="form-control">Заказ</InputText>
+        </div>
+
+        <div class="form-group">
+            <label for="inv">Продукт</label>
+            <ViewProductsComponent OnSelectProduct="OnSelectProduct"
+                                   DisplaySearchResult="true">
+            </ViewProductsComponent>
+            <InputText id="inv" class="form-control" @bind-Value="sellViewModel.ProductName" disabled></InputText>
+            <input type="hidden" value="@sellViewModel.ProductId" />
+            @if (selectedProduct != null)
+            {
+                <text>Стоимость: </text>
+                @selectedProduct?.ProductPrice.ToString("c", new System.Globalization.CultureInfo("ru-RU"))
+                ;
+            }
+        </div>
+
+        <div class="form-group">
+            <label for="qty">Количество</label>
+            <InputNumber id="qty" @bind-Value="sellViewModel.QuantityToSell" class="form-control">Заказ</InputNumber>
+        </div>
+        <br />
+        <button type="submit" class="btn btn-primary">
+            <i class="fa fa-cog"></i>
+            Собрать
+        </button>
+
+    </EditForm>
+}
+
+@code {
+    public SellViewModel sellViewModel = new SellViewModel();
+    public Product selectedProduct;
+
+    private void OnValidSubmit()
+    {
+
+    }
+
+    private void OnSelectProduct(Product product)
+    {
+        this.selectedProduct = product;
+        sellViewModel.ProductId = product.ProductId;
+        sellViewModel.ProductName = product.ProductName;
+    }
+}
