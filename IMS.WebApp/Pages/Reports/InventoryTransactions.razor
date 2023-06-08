@@ -1,0 +1,104 @@
+﻿@page "/inventoryreport"
+
+@inject ISearchInventoryTransactionsUseCase SearchInventoryTransactionsUseCase
+
+<h3>Inventory Transaction</h3>
+<br />
+
+<div class="row">
+        <div class="col">
+            <label for="inv">Наименование</label>
+            <input type="text" id="inv" class="form-control" @bind-value="invName" />
+        </div>
+
+        <div class="col">
+            <label for="df">Дата от</label>
+            <input type="date" id="df" class="form-control" @bind-value="dateFrom" />
+        </div>
+
+        <div class="col">
+            <label for="dt">Дата до</label>
+            <input type="date" id="dt" class="form-control" @bind-value="dateTo" />
+        </div>
+
+        <div class="col">
+            <label for="at">Тип транзакции</label>
+                <select id="at" class="form-control" @bind="activityTypeId">
+                    <option id="0"></option>
+                    <option id="1">Покупка комплектующих</option>
+                    <option id="2">Сборка продуктов</option>
+                </select>
+        </div>
+
+        <div class="col">
+            <label>&nbsp;</label>
+            <button 
+                type="button" 
+                class="btn btn-primary form-control" @onclick="searchInventories">
+                <i class="fa fa-search"></i> Поиск
+            </button>
+        </div>
+</div>
+
+
+@if (inventoryTransactions != null)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Дата</th>
+                <th>Комплектующие</th>
+                <th>Транзакция</th>
+                <th>К-во до</th>
+                <th>К-во после</th>
+                <th>Номер #</th>
+                <th>Продукция #</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in inventoryTransactions)
+            {
+                <tr>
+                    <td>@item.TransactionDate.ToString("dd/mm/yyyy")</td>
+                    <td>@item.inventory.InventoryName</td>
+                    <td>
+                        @if (item.InventoryType == InventoryTransactionType.PurchaseInventory)
+                        {
+                            <text>Покупка комплектующих</text>
+                        } else if (item.InventoryType == InventoryTransactionType.ProduceProduct)
+                        {
+                            <text>Сборка продукта</text>
+                        }
+                    </td>
+                    <td>@item.QuantityBefore</td>
+                    <td>@item.QuantityAfter</td>
+                    <td>@item.POnumber</td>
+                    <td>@item.ProductionNumber</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+@code {
+    private string invName;
+    private DateTime? dateFrom;
+    private DateTime? dateTo;
+    private int activityTypeId;
+    private IEnumerable<InventoryTransaction> inventoryTransactions;
+
+    private async Task searchInventories()
+    {
+        InventoryTransactionType? activityType = null;
+        if (activityTypeId != 0)
+        {
+            activityType = (InventoryTransactionType)activityTypeId;
+        }
+
+        inventoryTransactions = await SearchInventoryTransactionsUseCase.ExecuteAsync(
+            invName,
+            dateFrom,
+            dateTo,
+            activityType
+        );
+    }
+}
