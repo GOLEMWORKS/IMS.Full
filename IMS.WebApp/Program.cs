@@ -59,6 +59,7 @@ builder.Services.AddTransient<ISellProductUseCase, SellProductUseCase>();
 builder.Services.AddTransient<IValidateEnoughInventoriesForProducingUseCase, ValidateEnoughInventoriesForProducingUseCase>();
 
 builder.Services.AddTransient<ISearchInventoryTransactionsUseCase, SearchInventoryTransactionsUseCase>();
+builder.Services.AddTransient<ISearchProductTrasnsactionsUseCase, SearchProductTrasnsactionsUseCase>();
 
 builder.Services.AddScoped<DialogService>();
 builder.Services.AddScoped<NotificationService>();

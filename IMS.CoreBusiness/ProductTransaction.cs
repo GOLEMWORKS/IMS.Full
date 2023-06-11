@@ -14,7 +14,7 @@ namespace IMS.CoreBusiness
         public ProductTransactionType ActivityType { get; set; }
         [Required]
         public int QuantityAfter { get; set; }
-        public string? ProductionNnumber { get; set; }
+        public string? ProductionNumber { get; set; }
         public string? SalesOrderNumber { get; set; }
         public double? UnitPrice { get; set; }
         [Required]
@@ -22,5 +22,6 @@ namespace IMS.CoreBusiness
         [Required]
         public string DoneBy { get; set; }
         public Product Product { get; set; }
+        public Inventory Inventory { get; set; }
     }
 }

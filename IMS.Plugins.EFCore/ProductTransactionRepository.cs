@@ -17,7 +17,25 @@ namespace IMS.Plugins.EFCore
             this.db = db;
             this.productRepository = productRepository;
         }
-        
+
+        public async Task<IEnumerable<ProductTransaction>> GetProductTransactionAsync(
+            string productName, 
+            DateTime? dateFrom, 
+            DateTime? dateTo, 
+            ProductTransactionType? transactionType)
+        {
+            var query = from pt in db.ProductTransactions
+                        join prod in db.Products on pt.ProductId equals prod.ProductId
+                        where 
+                            (string.IsNullOrEmpty(productName) || prod.ProductName.Contains(productName, StringComparison.OrdinalIgnoreCase)) &&
+                            (!dateFrom.HasValue || pt.TransactionDate >= dateFrom.Value.Date) &&
+                            (!dateTo.HasValue || pt.TransactionDate <= dateTo.Value.Date) &&
+                            (!transactionType.HasValue || pt.ActivityType == transactionType)
+                        select pt;
+
+            return await query.Include(x => x.Product).ToListAsync();
+        }
+
         public async Task ProduceAsync(string productionNumber, Product product, int quantity, double price, string doneBy)
         {
             var prod = await this.productRepository.GetProductByIdAsync(product.ProductId);
@@ -46,7 +64,7 @@ namespace IMS.Plugins.EFCore
 
             this.db.ProductTransactions.Add(new ProductTransaction
             {
-                ProductionNnumber = productionNumber,
+                ProductionNumber = productionNumber,
                 ProductId = product.ProductId,
                 QuantityBefore = product.ProductQuantity,
                 ActivityType = ProductTransactionType.ProduceProduct,
