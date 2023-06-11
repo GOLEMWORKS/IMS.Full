@@ -81,8 +81,8 @@ var app = builder.Build();
 
 var scope = app.Services.CreateScope();
 var imsContextProvider = scope.ServiceProvider.GetRequiredService<IMSContext>();
-imsContextProvider.Database.EnsureDeleted();
-imsContextProvider.Database.EnsureCreated();
+//imsContextProvider.Database.EnsureDeleted();
+//imsContextProvider.Database.EnsureCreated();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
