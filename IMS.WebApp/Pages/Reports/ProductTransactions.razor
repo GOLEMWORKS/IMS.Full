@@ -1,6 +1,7 @@
 ﻿@page "/productreport"
 
 @inject ISearchProductTrasnsactionsUseCase SearchProductTrasnsactionsUseCase
+@inject IJSRuntime JSRuntime
 
 <h3>Транзакции продукции</h3>
 <br />
@@ -38,45 +39,56 @@
                 <i class="fa fa-search"></i> Поиск
             </button>
         </div>
+
+        <div class="col">
+            <label>&nbsp;</label>
+            <button type="button"
+                    class="btn btn-primary form-control" @onclick="Print">
+                <i class="fa fa-print"></i> Печать
+            </button>
+        </div>
 </div>
 
 
 @if (productTransactions != null)
 {
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Дата</th>
-                <th>Продукт</th>
-                <th>Транзакция</th>
-                <th>К-во до</th>
-                <th>К-во после</th>
-                <th>Заказ</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var prod in productTransactions)
-            {
+    <div id="printarea">
+        <table class="table">
+            <thead>
                 <tr>
-                    <td>@prod.TransactionDate.ToString("hh/mm/ss dd/MM/yyyy")</td>
-                    <td>@prod.Product.ProductName</td>
-                    <td>
-                        @if (prod.ActivityType == ProductTransactionType.ProduceProduct)
-                        {
-                            <text>Производство</text>
-                        }
-                        else if (prod.ActivityType == ProductTransactionType.SellProduct)
-                        {
-                            <text>Продажа</text>
-                        }
-                    </td>
-                    <td>@prod.QuantityBefore</td>
-                    <td>@prod.QuantityAfter</td>
-                    <td>@prod.SalesOrderNumber @prod.ProductionNumber</td>
+                    <th>Дата</th>
+                    <th>Продукт</th>
+                    <th>Транзакция</th>
+                    <th>К-во до</th>
+                    <th>К-во после</th>
+                    <th>Заказ</th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach (var prod in productTransactions)
+                {
+                    <tr>
+                        <td>@prod.TransactionDate.ToString("hh/mm/ss dd/MM/yyyy")</td>
+                        <td>@prod.Product.ProductName</td>
+                        <td>
+                            @if (prod.ActivityType == ProductTransactionType.ProduceProduct)
+                            {
+                                <text>Производство</text>
+                            }
+                            else if (prod.ActivityType == ProductTransactionType.SellProduct)
+                            {
+                                <text>Продажа</text>
+                            }
+                        </td>
+                        <td>@prod.QuantityBefore</td>
+                        <td>@prod.QuantityAfter</td>
+                        <td>@prod.SalesOrderNumber @prod.ProductionNumber</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    
 }
 @code {
     private string prodName;
@@ -98,5 +110,10 @@
             dateFrom,
             dateTo,
             productTransactionType);
+    }
+
+    private void Print()
+    {
+        JSRuntime.InvokeVoidAsync("print");
     }
 }

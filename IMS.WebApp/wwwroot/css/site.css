@@ -66,3 +66,19 @@ a, .btn-link {
     .table-hover tbody tr:hover td {
         background: #bababa36;
     }
+
+    @media print{
+        body * {
+            visibility: hidden;
+        }
+
+        #printaree, #printarea * {
+            visibility: visible;
+        }
+
+        #printarea{
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+    }

@@ -1,6 +1,7 @@
 ﻿@page "/inventoryreport"
 
 @inject ISearchInventoryTransactionsUseCase SearchInventoryTransactionsUseCase
+@inject IJSRuntime JSRuntime
 
 <h3>Транзакции комплектующих</h3>
 <br />
@@ -38,45 +39,58 @@
                 <i class="fa fa-search"></i> Поиск
             </button>
         </div>
+
+        <div class="col">
+            <label>&nbsp;</label>
+            <button 
+                type="button" 
+                class="btn btn-primary form-control" @onclick="Print">
+                <i class="fa fa-print"></i> Печать
+            </button>
+        </div>
 </div>
 
 
 @if (inventoryTransactions != null)
-{
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Дата</th>
-                <th>Комплектующие</th>
-                <th>Транзакция</th>
-                <th>К-во до</th>
-                <th>К-во после</th>
-                <th>Заказ</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in inventoryTransactions)
-            {
+{ 
+    <div id="printarea">
+        <table class="table">
+            <thead>
                 <tr>
-                    <td>@item.TransactionDate.ToString("hh/mm/ss dd/MM/yyyy")</td>
-                    <td>@item.inventory.InventoryName</td>
-                    <td>
-                        @if (item.InventoryType == InventoryTransactionType.PurchaseInventory)
-                        {
-                            <text>Покупка комплектующих</text>
-                        } else if (item.InventoryType == InventoryTransactionType.ProduceProduct)
-                        {
-                            <text>Сборка продукта</text>
-                        }
-                    </td>
-                    <td>@item.QuantityBefore</td>
-                    <td>@item.QuantityAfter</td>
-                    <td>@item.POnumber</td>
-                    <td>@item.ProductionNumber</td>
+                    <th>Дата</th>
+                    <th>Комплектующие</th>
+                    <th>Транзакция</th>
+                    <th>К-во до</th>
+                    <th>К-во после</th>
+                    <th>Заказ</th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach (var item in inventoryTransactions)
+                {
+                    <tr>
+                        <td>@item.TransactionDate.ToString("hh/mm/ss dd/MM/yyyy")</td>
+                        <td>@item.inventory.InventoryName</td>
+                        <td>
+                            @if (item.InventoryType == InventoryTransactionType.PurchaseInventory)
+                            {
+                                <text>Покупка комплектующих</text>
+                            }
+                            else if (item.InventoryType == InventoryTransactionType.ProduceProduct)
+                            {
+                                <text>Сборка продукта</text>
+                            }
+                        </td>
+                        <td>@item.QuantityBefore</td>
+                        <td>@item.QuantityAfter</td>
+                        <td>@item.POnumber</td>
+                        <td>@item.ProductionNumber</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    
 }
 @code {
     private string invName;
@@ -98,5 +112,10 @@
             dateFrom,
             dateTo,
             inventoryTransactionType);
+    }
+
+    private void Print()
+    {
+        JSRuntime.InvokeVoidAsync("print");   
     }
 }

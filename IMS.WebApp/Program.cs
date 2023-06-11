@@ -33,7 +33,8 @@ builder.Services.AddSingleton<WeatherForecastService>();
 
 builder.Services.AddDbContext<IMSContext>(options =>
 {
-    options.UseInMemoryDatabase("IMS");
+    //options.UseInMemoryDatabase("IMS");
+    options.UseSqlServer(builder.Configuration.GetConnectionString("InventoryManagement"));
 });
  
 builder.Services.AddTransient<IInventoryRepository, InventoryRepository>();
