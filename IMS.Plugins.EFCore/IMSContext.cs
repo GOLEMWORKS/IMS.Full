@@ -54,7 +54,7 @@ namespace IMS.Plugins.EFCore
             );
 
             modelBuilder.Entity<ProductInventory>().HasData(
-                    new ProductInventory { ProductId = 1, InventoryId = 1, InventoryQuantity = 1}, // Двигатель (Бензин)
+                    new ProductInventory { ProductId = 1, InventoryId = 2, InventoryQuantity = 1}, // Двигатель (Бензин)
                     new ProductInventory { ProductId = 1, InventoryId = 7, InventoryQuantity = 1 }, // Кузов
                     new ProductInventory { ProductId = 1, InventoryId = 5, InventoryQuantity = 4 }, // 4 колеса
                     new ProductInventory { ProductId = 1, InventoryId = 6, InventoryQuantity = 4 }, // 4 шины
@@ -63,7 +63,7 @@ namespace IMS.Plugins.EFCore
             );
 
             modelBuilder.Entity<ProductInventory>().HasData(
-                    new ProductInventory { ProductId = 2, InventoryId = 2, InventoryQuantity = 1 }, // Двигатель (Дизель)
+                    new ProductInventory { ProductId = 2, InventoryId = 1, InventoryQuantity = 1 }, // Двигатель (Дизель)
                     new ProductInventory { ProductId = 2, InventoryId = 7, InventoryQuantity = 1 }, // Кузов
                     new ProductInventory { ProductId = 2, InventoryId = 5, InventoryQuantity = 4 }, // 4 колеса
                     new ProductInventory { ProductId = 2, InventoryId = 6, InventoryQuantity = 4 }, // 4 шины
@@ -74,7 +74,7 @@ namespace IMS.Plugins.EFCore
             modelBuilder.Entity<ProductInventory>().HasData(
                     new ProductInventory { ProductId = 3, InventoryId = 3, InventoryQuantity = 4 }, // Электродвигатель
                     new ProductInventory { ProductId = 3, InventoryId = 7, InventoryQuantity = 1 }, // Кузов
-                    new ProductInventory { ProductId = 3, InventoryId = 8, InventoryQuantity = 2 }, // Блок баттареи
+                    new ProductInventory { ProductId = 3, InventoryId = 8, InventoryQuantity = 2 }, // Блок батареи
                     new ProductInventory { ProductId = 3, InventoryId = 5, InventoryQuantity = 4 }, // 4 колеса
                     new ProductInventory { ProductId = 3, InventoryId = 6, InventoryQuantity = 4 }, // 4 шины
                     new ProductInventory { ProductId = 3, InventoryId = 9, InventoryQuantity = 2 }, // 2 одиночных кресла
