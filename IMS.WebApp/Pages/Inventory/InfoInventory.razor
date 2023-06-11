@@ -2,11 +2,11 @@
 
 @inject IViewInventoriesByIdUseCase ViewInventoriesByIdUseCase
 @inject NavigationManager NavigationManager
-@inject IJSRuntime _js
+@inject IJSRuntime JSRuntime
 
 @if(inventory != null)
 {
-    <div class="col-4">
+    <div class="col-4" id="printarea">
         <table class="table">
             <thead>
                 <tr>
@@ -50,7 +50,7 @@
     </button>
     <button type="button"
             class="btn btn-primary"
-            @onclick="@PrintMe">
+            @onclick="@Print">
         <i class="fa fa-print"></i>
         Печать
     </button>
@@ -78,8 +78,10 @@
         NavigationManager.NavigateTo("/inventories");
     }
 
-    private async Task PrintMe()
-        => await _js.InvokeVoidAsync("window.print");
+    private void Print()
+    {
+        JSRuntime.InvokeVoidAsync("print");
+    }
 
     public void RedirectToEdit()
     {

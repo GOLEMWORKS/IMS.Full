@@ -1,6 +1,8 @@
 ﻿<AuthorizeView>
     <Authorized>
-        <a href="Identity/Account/Manage">Привет, @context.User.Identity?.Name!</a>
+        <a href="Identity/Account/Manage">
+            <RadzenGravatar Email="@context.User.Identity?.Name"></RadzenGravatar>
+        </a>
         <form method="post" action="Identity/Account/LogOut">
             <button type="submit" class="nav-link btn btn-link">Выход</button>
         </form>

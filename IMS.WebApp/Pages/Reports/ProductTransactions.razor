@@ -68,7 +68,7 @@
                 @foreach (var prod in productTransactions)
                 {
                     <tr>
-                        <td>@prod.TransactionDate.ToString("hh/mm/ss dd/MM/yyyy")</td>
+                        <td>@prod.TransactionDate.ToString("HH:mm:ss dd/MM/yyyy")</td>
                         <td>@prod.Product.ProductName</td>
                         <td>
                             @if (prod.ActivityType == ProductTransactionType.ProduceProduct)
