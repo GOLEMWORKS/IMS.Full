@@ -58,7 +58,7 @@
             @foreach (var item in inventoryTransactions)
             {
                 <tr>
-                    <td>@item.TransactionDate.ToString("hh/mm dd/MM/yyyy")</td>
+                    <td>@item.TransactionDate.ToString("hh/mm/ss dd/MM/yyyy")</td>
                     <td>@item.inventory.InventoryName</td>
                     <td>
                         @if (item.InventoryType == InventoryTransactionType.PurchaseInventory)
