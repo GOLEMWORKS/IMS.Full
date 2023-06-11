@@ -22,6 +22,5 @@ namespace IMS.CoreBusiness
         [Required]
         public string DoneBy { get; set; }
         public Product Product { get; set; }
-        public Inventory Inventory { get; set; }
     }
 }

@@ -25,8 +25,8 @@
             <label for="at">Тип транзакции</label>
                 <select id="at" class="form-control" @bind="activityTypeId">
                     <option value="0"></option>
-                    <option value="1">Сборка продуктов</option> 
-                    <option value="2">Продажа продуктов</option>
+                    <option value="1">Производство</option>
+                    <option value="2">Продажа</option>
                 </select>
         </div>
 
@@ -59,7 +59,7 @@
             {
                 <tr>
                     <td>@prod.TransactionDate.ToString("hh/mm/ss dd/MM/yyyy")</td>
-                    <td>@prod.Inventory.InventoryName</td>
+                    <td>@prod.Product.ProductName</td>
                     <td>
                         @if (prod.ActivityType == ProductTransactionType.ProduceProduct)
                         {
@@ -72,8 +72,7 @@
                     </td>
                     <td>@prod.QuantityBefore</td>
                     <td>@prod.QuantityAfter</td>
-                    <td>@prod.ProductTransactionId</td>
-                    <td>@prod.ProductionNumber</td>
+                    <td>@prod.SalesOrderNumber @prod.ProductionNumber</td>
                 </tr>
             }
         </tbody>

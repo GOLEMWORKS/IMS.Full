@@ -71,7 +71,7 @@ namespace IMS.Plugins.EFCore
                 QuantityAfter = product.ProductQuantity + quantity,
                 TransactionDate = DateTime.Now,
                 DoneBy = doneBy,
-                UnitPrice = price
+                UnitPrice = price,
             });
 
             await this.db.SaveChangesAsync();
@@ -87,7 +87,8 @@ namespace IMS.Plugins.EFCore
                 QuantityAfter = product.ProductQuantity - quantity,
                 TransactionDate = DateTime.Now,
                 DoneBy = doneDy,
-                UnitPrice = price
+                UnitPrice = price,
+                ActivityType= ProductTransactionType.SellProduct
             });
 
             await this.db.SaveChangesAsync();
