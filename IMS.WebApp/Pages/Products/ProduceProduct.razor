@@ -4,6 +4,7 @@
 
 @inject IProduceProductUseCase ProduceProductUseCase
 @inject IValidateEnoughInventoriesForProducingUseCase ValidateEnoughInventoriesForProducingUseCase
+@inject NavigationManager navMan
 
 <ErrorMessageComponent ErrorMessage="@errorMessage"></ErrorMessageComponent>
 <PageTitle>Сборка</PageTitle>
@@ -39,11 +40,18 @@
             <InputNumber id="qty" @bind-Value="produceViewModel.QuantityToProduce" class="form-control">Заказ</InputNumber>
         </div>
         <br />
+        
+        <div class="form-group">
+            <label for="who">Автор транзакции</label>
+            <InputText id="qty" @bind-Value="produceViewModel.DoneBy" class="form-control"></InputText>
+        </div>
+
         <button type="submit" class="btn btn-primary">
             <i class="fa fa-cog"></i>
             Собрать
         </button>
 
+        
     </EditForm>
 }
 
@@ -55,11 +63,32 @@
 }
 
 @code {
+    [CascadingParameter]
+    private Task<AuthenticationState> authenticationState { get; set; }
+
+    [Inject]
+    UserManager<IdentityUser> userManager { get; set; }
+
     private ProduceViewModel produceViewModel = new ProduceViewModel();
     private Product selectedProduct;
     private string errorMessage;
 
     private bool validPurchase = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var user = (await authenticationState).User;
+
+        if (user.Identity.IsAuthenticated) 
+        {
+            var currentUser = await userManager.GetUserAsync(user);
+            var userName = currentUser.UserName;
+        }
+        else
+        {
+            navMan.NavigateTo("/products");
+        }
+    }
 
     private async Task OnValidSubmit()
     {
@@ -80,8 +109,8 @@
                 this.produceViewModel.ProductionNumber,
                 this.selectedProduct,
                 this.produceViewModel.QuantityToProduce,
-                "Vova" //Изменить после имплементации логирования
-        );
+                this.produceViewModel.DoneBy
+    );
 
         validPurchase = true;
         this.produceViewModel = new ProduceViewModel();

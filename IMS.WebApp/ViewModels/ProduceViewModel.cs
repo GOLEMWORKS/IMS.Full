@@ -14,5 +14,6 @@ namespace IMS.WebApp.ViewModels
         [Range(minimum: 1, maximum: int.MaxValue, ErrorMessage = "Минимальное количество для сборки: 1")]
         public int QuantityToProduce { get; set; }
         public double ProductPrice { get; set; }
+        public string DoneBy { get; set; }
     }
 }

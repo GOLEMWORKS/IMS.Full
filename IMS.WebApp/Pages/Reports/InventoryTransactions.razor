@@ -63,6 +63,7 @@
                     <th>К-во до</th>
                     <th>К-во после</th>
                     <th>Заказ</th>
+                    <th>Оформитель</th>
                 </tr>
             </thead>
             <tbody>
@@ -83,8 +84,8 @@
                         </td>
                         <td>@item.QuantityBefore</td>
                         <td>@item.QuantityAfter</td>
-                        <td>@item.POnumber</td>
-                        <td>@item.ProductionNumber</td>
+                        <td>@item.POnumber @item.ProductionNumber</td>
+                        <td>@item.DoneBy</td>
                     </tr>
                 }
             </tbody>
