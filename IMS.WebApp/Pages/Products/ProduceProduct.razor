@@ -40,11 +40,6 @@
             <InputNumber id="qty" @bind-Value="produceViewModel.QuantityToProduce" class="form-control">Заказ</InputNumber>
         </div>
         <br />
-        
-        <div class="form-group">
-            <label for="who">Автор транзакции</label>
-            <InputText id="qty" @bind-Value="produceViewModel.DoneBy" class="form-control"></InputText>
-        </div>
 
         <button type="submit" class="btn btn-primary">
             <i class="fa fa-cog"></i>
@@ -72,6 +67,7 @@
     private ProduceViewModel produceViewModel = new ProduceViewModel();
     private Product selectedProduct;
     private string errorMessage;
+    private string CurrentUserName;
 
     private bool validPurchase = false;
 
@@ -83,6 +79,7 @@
         {
             var currentUser = await userManager.GetUserAsync(user);
             var userName = currentUser.UserName;
+            CurrentUserName = userName;
         }
         else
         {
@@ -109,7 +106,7 @@
                 this.produceViewModel.ProductionNumber,
                 this.selectedProduct,
                 this.produceViewModel.QuantityToProduce,
-                this.produceViewModel.DoneBy
+                CurrentUserName
     );
 
         validPurchase = true;
