@@ -46,9 +46,36 @@
 }
 
 @code {
+    [CascadingParameter]
+    private Task<AuthenticationState> authenticationState { get; set; }
+
+    [Inject]
+    UserManager<IdentityUser> userManager { get; set; }
+
     public SellViewModel sellViewModel = new SellViewModel();
     public Product selectedProduct;
     private string errorMessage;
+
+    private string CurrentUserName;
+
+    private bool validPurchase = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var user = (await authenticationState).User;
+
+        if (user.Identity.IsAuthenticated)
+        {
+            var currentUser = await userManager.GetUserAsync(user);
+            var userName = currentUser.UserName;
+            CurrentUserName = userName;
+        }
+        else
+        {
+            errorMessage = $"Войдите в систему, чтобы продолжить!";
+            return;
+        }
+    }
 
     private void OnValidSubmit()
     {
@@ -66,7 +93,7 @@
             this.sellViewModel.SalesOrderNumber,
             this.selectedProduct,
             this.sellViewModel.QuantityToSell,
-            "Vova" //Изменить после имплементации логирования
+            CurrentUserName //Изменить после имплементации логирования
         );
 
         this.sellViewModel = new SellViewModel();
