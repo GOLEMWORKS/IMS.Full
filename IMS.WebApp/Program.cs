@@ -19,8 +19,11 @@ using IMS.UseCases.Reports;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+var dbHost = Environment.GetEnvironmentVariable("DB_HOST");
+var dbName = Environment.GetEnvironmentVariable("DB_NAME");
+var dbPassword = Environment.GetEnvironmentVariable("DB_SA_PASSWORD");
+var connectionString = $"Data Source ={dbHost}; Initial Catalog = {dbName}; User ID=sa; Password={dbPassword}";
+
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
@@ -31,16 +34,13 @@ builder.Services.AddServerSideBlazor();
 builder.Services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
 builder.Services.AddSingleton<WeatherForecastService>();
 
-var dbHost = "localhost";
-var dbName = "IMS";
-var dbPassword = "Wertel1337_";
-var connecionString = $"Data Source ={dbHost}; Initial Catalog = {dbName}; User ID=sa; Password={dbPassword}";
+
 
 builder.Services.AddDbContext<IMSContext>(options =>
 {
 //options.UseInMemoryDatabase("IMS");
 //options.UseSqlServer(builder.Configuration.GetConnectionString("InventoryManagement
-    options.UseSqlServer(connecionString);
+    options.UseSqlServer(connectionString);
 });
  
 builder.Services.AddTransient<IInventoryRepository, InventoryRepository>();

@@ -1,8 +1,34 @@
 version: '3.4'
 
+networks:
+  IMSapp:
+
 services:
+  ims.db:
+    container_name: MSSQL.IMS-db
+    image: mcr.microsoft.com/mssql/server:latest
+    ports:
+        - 8002:1433
+    environment:
+        - ACCEPT_EULA=Y 
+        - SA_PASSWORD=Wertel1337_
+    networks:
+        - IMSapp
+
+
   ims.webapp:
+    container_name: IMS.Web.App
     image: ${DOCKER_REGISTRY-}imswebapp
     build:
       context: .
       dockerfile: IMS.WebApp/Dockerfile
+    ports:
+        - 8001:80
+    depends_on:
+        - ims.db
+    environment:
+        - DB_HOST=ims.db
+        - DB_NAME=IMS.App
+        - DB_SA_PASSWORD=Wertel1337_
+    networks:
+        - IMSapp
