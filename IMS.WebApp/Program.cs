@@ -87,6 +87,13 @@ var app = builder.Build();
 
 var scope = app.Services.CreateScope();
 var imsContextProvider = scope.ServiceProvider.GetRequiredService<IMSContext>();
+var services = scope.ServiceProvider;
+
+var context = services.GetRequiredService<ApplicationDbContext>();
+if (context.Database.GetPendingMigrations().Any())
+{
+    context.Database.Migrate();
+}
 //imsContextProvider.Database.EnsureDeleted();
 //imsContextProvider.Database.EnsureCreated();
 
