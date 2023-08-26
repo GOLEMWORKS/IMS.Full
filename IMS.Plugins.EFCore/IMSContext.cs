@@ -1,5 +1,7 @@
 ﻿using IMS.CoreBusiness;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Storage;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +13,20 @@ namespace IMS.Plugins.EFCore
     public class IMSContext : DbContext
     {
         public IMSContext(DbContextOptions options) : base(options)
-        {        
+        {
+            try
+            {
+                var dbCreator = Database.GetService<IDatabaseCreator> () as RelationalDatabaseCreator;
+                if (dbCreator != null)
+                {
+                    if (!dbCreator.CanConnect()) dbCreator.Create();
+                    if (!dbCreator.HasTables()) dbCreator.CreateTables();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
 
         public DbSet<Inventory> Inventories { get; set; }

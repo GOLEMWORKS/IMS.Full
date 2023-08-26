@@ -7,6 +7,7 @@
     <UserSecretsId>aspnet-IMS.WebApp-5b404579-92f6-415c-be79-2bfb0756c386</UserSecretsId>
     <EnableSdkContainerSupport>true</EnableSdkContainerSupport>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
   </PropertyGroup>
 
   <ItemGroup>

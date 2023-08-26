@@ -31,10 +31,16 @@ builder.Services.AddServerSideBlazor();
 builder.Services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
 builder.Services.AddSingleton<WeatherForecastService>();
 
+var dbHost = "localhost";
+var dbName = "IMS";
+var dbPassword = "Wertel1337_";
+var connecionString = $"Data Source ={dbHost}; Initial Catalog = {dbName}; User ID=sa; Password={dbPassword}";
+
 builder.Services.AddDbContext<IMSContext>(options =>
 {
-    //options.UseInMemoryDatabase("IMS");
-    options.UseSqlServer(builder.Configuration.GetConnectionString("InventoryManagement"));
+//options.UseInMemoryDatabase("IMS");
+//options.UseSqlServer(builder.Configuration.GetConnectionString("InventoryManagement
+    options.UseSqlServer(connecionString);
 });
  
 builder.Services.AddTransient<IInventoryRepository, InventoryRepository>();

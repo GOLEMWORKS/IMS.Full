@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  ims.webapp:
+    image: ${DOCKER_REGISTRY-}imswebapp
+    build:
+      context: .
+      dockerfile: IMS.WebApp/Dockerfile
