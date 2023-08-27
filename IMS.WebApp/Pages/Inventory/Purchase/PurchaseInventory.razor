@@ -1,5 +1,7 @@
 ﻿@page  "/purchase"
 
+@using Microsoft.AspNetCore.Identity
+
 @inject IPurchaseInventoryUseCase PurchaseInventoryUseCase
 @inject NavigationManager NavigationManager
 
@@ -53,11 +55,30 @@
 }
 
 @code {
+    [CascadingParameter]
+    private Task<AuthenticationState> authenticationStateTask { get; set; }
+
+    [Inject]
+    UserManager<IdentityUser> userManager { get; set; }
+
     private PurchaseViewModel purchaseViewModel = new PurchaseViewModel();
 
     private Inventory selectedInventory;
 
     private bool validPurchase = false;
+
+    private string email;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var user = (await authenticationStateTask).User;
+
+        if (user.Identity.IsAuthenticated)
+        {
+            var currentUser = await userManager.GetUserAsync(user);
+            email = currentUser.Email;
+        }
+    }
 
     private void OnSelectInventory(Inventory inventory)
     {
@@ -72,7 +93,7 @@
                 this.purchaseViewModel.PurchaseOrder,
                 this.selectedInventory,
                 this.purchaseViewModel.QuantityToPurchase,
-                "PurchaseInventory.razor");
+                this.email);
         validPurchase = true;
         this.purchaseViewModel = new PurchaseViewModel();
         this.selectedInventory = null;
