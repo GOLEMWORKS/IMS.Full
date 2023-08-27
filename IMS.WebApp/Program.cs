@@ -38,8 +38,6 @@ builder.Services.AddSingleton<WeatherForecastService>();
 
 builder.Services.AddDbContext<IMSContext>(options =>
 {
-//options.UseInMemoryDatabase("IMS");
-//options.UseSqlServer(builder.Configuration.GetConnectionString("InventoryManagement
     options.UseSqlServer(connectionString);
 });
  
@@ -87,6 +85,10 @@ var app = builder.Build();
 
 var scope = app.Services.CreateScope();
 var imsContextProvider = scope.ServiceProvider.GetRequiredService<IMSContext>();
+if (imsContextProvider.Database.GetPendingMigrations().Any())
+{
+    imsContextProvider.Database.Migrate();
+}
 var services = scope.ServiceProvider;
 
 var context = services.GetRequiredService<ApplicationDbContext>();
@@ -94,10 +96,7 @@ if (context.Database.GetPendingMigrations().Any())
 {
     context.Database.Migrate();
 }
-//imsContextProvider.Database.EnsureDeleted();
-//imsContextProvider.Database.EnsureCreated();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseMigrationsEndPoint();

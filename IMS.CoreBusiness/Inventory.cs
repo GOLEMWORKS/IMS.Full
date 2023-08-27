@@ -13,6 +13,9 @@ namespace IMS.CoreBusiness
         [Range(0, double.MaxValue,ErrorMessage ="Цена не может принимать отрицательное значение!")]
         public double Price { get; set; }
 
+        [Required(ErrorMessage = "Необходимо отсканировать штрихкод товара!")]
+        public int Barcode { get; set; }
+
         public List<ProductInventory>? ProductInventories { get; set; }
     }
 }

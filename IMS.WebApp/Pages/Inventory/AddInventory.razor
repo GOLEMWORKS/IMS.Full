@@ -28,6 +28,11 @@
                 <label for="price">Цена ₽ (за штуку)</label>
                 <InputNumber id="price" @bind-Value="inventory.Price" class="form-control"></InputNumber>
             </div>
+
+            <div class="form-group">
+                <label for="barcode">Штрихкод</label>
+                <InputNumber id="barcode" @bind-Value="inventory.Barcode" class="form-control"></InputNumber>
+            </div>
             <br />
             <button 
                 type="submit" 
