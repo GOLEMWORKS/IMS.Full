@@ -32,6 +32,10 @@
                     <td>@inventory.Price.ToString("c", new System.Globalization.CultureInfo("ru-RU"))</td>
                 </tr>
                 <tr>
+                    <th scope="row">Штрихкод</th>
+                    <td>@inventory.Barcode</td>
+                </tr>
+                <tr>
                     <th scope="row">Общая стоимость на складе</th>
                     <td>@String.Format(new System.Globalization.CultureInfo("ru-RU"), "{0:C}", inventory.Price * inventory.Quantity)</td>
                 </tr>

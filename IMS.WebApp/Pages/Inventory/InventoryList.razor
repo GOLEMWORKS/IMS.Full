@@ -34,6 +34,7 @@
                 @String.Format(new System.Globalization.CultureInfo("ru-RU"), "{0:C}", inventoryRadzen.Price * inventoryRadzen.Quantity)
             </Template>
         </RadzenDataGridColumn>
+        <RadzenDataGridColumn TItem="Inventory" Property="Barcode" Title="Штрихкод" />
         <RadzenDataGridColumn TItem="Inventory" Context="inventoryRadzen" Filterable="false" Sortable="false" TextAlign="TextAlign.Right" Width="400px">
             <Template Context="inventoryRadzen">
                 <div class="btn-group-sm w-75">
