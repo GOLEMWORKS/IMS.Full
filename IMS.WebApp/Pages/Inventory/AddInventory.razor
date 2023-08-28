@@ -42,12 +42,12 @@
                                                          ShowResult="false"
                                                          OnBarcodeReceived="LocalReceivedBarcodeText" />
             <div class="alert alert-success">
-                @(!string.IsNullOrWhiteSpace(LocalBarcodeText) ? @LocalBarcodeText : "Результат появится здесь.")
-                <br/>Не забудьте обязательно сверить полученные данные с реальным штрихкодом!
+                Отсканированый результат: <i>@(!string.IsNullOrWhiteSpace(LocalBarcodeText) ? @LocalBarcodeText : "...Штрихкод не отсканирован...")</i>
+                <br/>Не забудьте обязательно сверить полученные данные с реальным штрихкодом на товаре!
             </div>
 
                 <label for="barcode">Штрихкод</label>    
-                <InputText 
+                <InputText
                     id="barcode" 
                     @bind-Value="@inventory.Barcode" 
                     class="form-control" 
@@ -55,19 +55,20 @@
                 </InputText>
             </div>
             <br />
-            <button 
-                type="submit" 
-                class="btn btn-primary">
+            <div style="margin-bottom: 20px;">
+                <button type="submit"
+                        class="btn btn-primary">
                     <i class="fa fa-save"></i>
-                &#8203; Сохранить
-            </button>
-            <button 
-                type="button" 
-                class="btn btn-danger" 
+                    &#8203; Сохранить
+                </button>
+                <button type="button"
+                        class="btn btn-danger"
                 @onclick="Back">
                     <i class="fa fa-close"></i>
-                Отмена
-            </button>
+                    Отмена
+                </button>
+            </div>
+            
     </EditForm>
 }
 @code {
@@ -83,7 +84,6 @@
         await InvokeAsync(() =>
         {
             this.LocalBarcodeText = args.BarcodeText;
-
             StateHasChanged();
         });
     }
