@@ -38,7 +38,10 @@ builder.Services.AddSingleton<WeatherForecastService>();
 
 builder.Services.AddDbContext<IMSContext>(options =>
 {
-    options.UseSqlServer(connectionString);
+    options.UseSqlServer(connectionString, b => b.MigrationsAssembly("IMS.WebApp"));
+
+//builder.Services.AddDbContext<ProjectDbContext>(options =>
+//          options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("Project.Presentation")));
 });
  
 builder.Services.AddTransient<IInventoryRepository, InventoryRepository>();

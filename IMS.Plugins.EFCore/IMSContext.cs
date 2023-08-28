@@ -50,16 +50,16 @@ namespace IMS.Plugins.EFCore
                 .HasForeignKey(pi => pi.InventoryId);
 
             modelBuilder.Entity<Inventory>().HasData(
-                     new Inventory { InventoryId = 1, InventoryName="Двигатель (Бензиновый)", Price=26000, Quantity=1},
-                     new Inventory { InventoryId = 2, InventoryName = "Двигатель (Дизельный)", Price = 20000, Quantity = 1 },
-                     new Inventory { InventoryId = 3, InventoryName = "Электродвигатель", Price = 40000, Quantity = 1 },
-                     new Inventory { InventoryId = 4, InventoryName = "Трансмиссия", Price = 28700, Quantity = 1 },
-                     new Inventory { InventoryId = 5, InventoryName = "Колёса", Price = 4000, Quantity = 4 },
-                     new Inventory { InventoryId = 6, InventoryName = "Шины", Price = 4000, Quantity = 5 },
-                     new Inventory { InventoryId = 7, InventoryName = "Кузов", Price = 74000, Quantity = 1 },
-                     new Inventory { InventoryId = 8, InventoryName = "Блок батареи", Price = 70000, Quantity = 1 },
-                     new Inventory { InventoryId = 9, InventoryName = "Одиночное кресло", Price = 9000, Quantity = 1 },
-                     new Inventory { InventoryId = 10, InventoryName = "Кресло 2 + 1", Price = 18500, Quantity = 1 }
+                     new Inventory { InventoryId = 1, InventoryName="Двигатель (Бензиновый)", Price=26000, Quantity=1, Barcode=""},
+                     new Inventory { InventoryId = 2, InventoryName = "Двигатель (Дизельный)", Price = 20000, Quantity = 1, Barcode = "" },
+                     new Inventory { InventoryId = 3, InventoryName = "Электродвигатель", Price = 40000, Quantity = 1, Barcode = "" },
+                     new Inventory { InventoryId = 4, InventoryName = "Трансмиссия", Price = 28700, Quantity = 1, Barcode = "" },
+                     new Inventory { InventoryId = 5, InventoryName = "Колёса", Price = 4000, Quantity = 4, Barcode = "" },
+                     new Inventory { InventoryId = 6, InventoryName = "Шины", Price = 4000, Quantity = 5, Barcode = "" },
+                     new Inventory { InventoryId = 7, InventoryName = "Кузов", Price = 74000, Quantity = 1, Barcode = "" },
+                     new Inventory { InventoryId = 8, InventoryName = "Блок батареи", Price = 70000, Quantity = 1, Barcode = "" },
+                     new Inventory { InventoryId = 9, InventoryName = "Одиночное кресло", Price = 9000, Quantity = 1, Barcode = "" },
+                     new Inventory { InventoryId = 10, InventoryName = "Кресло 2 + 1", Price = 18500, Quantity = 1, Barcode = "" }
             );
 
             modelBuilder.Entity<Product>().HasData(

@@ -14,7 +14,7 @@ namespace IMS.CoreBusiness
         public double Price { get; set; }
 
         [Required(ErrorMessage = "Необходимо отсканировать штрихкод товара!")]
-        public int Barcode { get; set; }
+        public string? Barcode { get; set; }
 
         public List<ProductInventory>? ProductInventories { get; set; }
     }
