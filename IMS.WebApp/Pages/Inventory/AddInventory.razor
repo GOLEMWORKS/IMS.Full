@@ -84,6 +84,7 @@
         await InvokeAsync(() =>
         {
             this.LocalBarcodeText = args.BarcodeText;
+            inventory.Barcode = args.BarcodeText;
             StateHasChanged();
         });
     }
