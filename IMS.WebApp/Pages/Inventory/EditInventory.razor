@@ -1,5 +1,7 @@
 ﻿@page "/editinventory/{invId:int}"
 
+@attribute [Authorize]
+
 @inject IViewInventoriesByIdUseCase ViewInventoriesByIdUseCase
 @inject IEditInventoryUseCase EditInventoryUseCase
 @inject NavigationManager NavigationManager
@@ -26,7 +28,24 @@
                 <label for="price">Цена</label>
                 <InputNumber id="price" @bind-Value="inventory.Price" class="form-control"></InputNumber>
             </div>
+
             <div class="form-group">
+            <BlazorBarcodeScanner.ZXing.JS.BarcodeReader Title="Отсканируйте штрихкод с товара"
+                                                         @ref="_reader"
+                                                         StartCameraAutomatically="true"
+                                                         ShowStart="false"
+                                                         ShowReset="false"
+                                                         ShowToggleTorch="false"
+                                                         ShowVideoDeviceList="false"
+                                                         VideoWidth="640"
+                                                         VideoHeight="480"
+                                                         ShowResult="false"
+                                                         OnBarcodeReceived="LocalReceivedBarcodeText" />
+            <div class="alert alert-success">
+                Отсканированый результат: <i>@(!string.IsNullOrWhiteSpace(LocalBarcodeText) ? @LocalBarcodeText : "...Штрихкод не отсканирован...")</i>
+                <br />Не забудьте обязательно сверить полученные данные с реальным штрихкодом на товаре!
+            </div>
+
                 <label for="barcode">Штрихкод</label>
                 <InputText id="barcode" @bind-Value="inventory.Barcode" class="form-control"></InputText>
             </div>
@@ -51,7 +70,22 @@
     [Parameter]
     public int invId { get; set; }
 
+    [Parameter]
+    public string? LocalBarcodeText { get; set; }
+
+    private BarcodeReader _reader;
+
     private Inventory? inventory;
+
+    private async Task LocalReceivedBarcodeText(BarcodeReceivedEventArgs args)
+    {
+        await InvokeAsync(() =>
+        {
+            this.LocalBarcodeText = args.BarcodeText;
+            inventory.Barcode = args.BarcodeText;
+            StateHasChanged();
+        });
+    }
 
     protected override async Task OnInitializedAsync()
     {
