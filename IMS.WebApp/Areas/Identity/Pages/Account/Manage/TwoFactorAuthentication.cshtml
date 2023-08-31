@@ -2,7 +2,7 @@
 @using Microsoft.AspNetCore.Http.Features
 @model TwoFactorAuthenticationModel
 @{
-    ViewData["Title"] = "Two-factor authentication (2FA)";
+    ViewData["Title"] = "Двухфакторная аутентификация (2FA)";
     ViewData["ActivePage"] = ManageNavPages.TwoFactorAuthentication;
 }
 
@@ -49,7 +49,7 @@
         <h4>Authenticator app</h4>
         @if (!Model.HasAuthenticator)
         {
-            <a id="enable-authenticator" asp-page="./EnableAuthenticator" class="btn btn-primary">Добавьте приложене аутентификатор</a>
+            <a id="enable-authenticator" asp-page="./EnableAuthenticator" class="btn btn-primary">Добавьте приложение для аутентификации</a>
         }
         else
         {
