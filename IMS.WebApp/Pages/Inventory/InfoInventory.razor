@@ -1,5 +1,7 @@
 ﻿@page "/infoinventory/{invId:int}"
 
+@attribute [Authorize]
+
 @inject IViewInventoriesByIdUseCase ViewInventoriesByIdUseCase
 @inject NavigationManager NavigationManager
 @inject IJSRuntime JSRuntime
@@ -24,7 +26,7 @@
                     <td>@inventory.InventoryName</td>
                 </tr>
                 <tr>
-                    <th scope="row">Количество в комплекте</th>
+                    <th scope="row">Доступно на складе:</th>
                     <td>@inventory.Quantity</td>
                 </tr>
                 <tr>
