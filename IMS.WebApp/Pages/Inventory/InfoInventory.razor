@@ -1,5 +1,7 @@
 ﻿@page "/infoinventory/{invId:int}"
 
+@attribute [Authorize]
+
 @inject IViewInventoriesByIdUseCase ViewInventoriesByIdUseCase
 @inject NavigationManager NavigationManager
 @inject IJSRuntime JSRuntime
