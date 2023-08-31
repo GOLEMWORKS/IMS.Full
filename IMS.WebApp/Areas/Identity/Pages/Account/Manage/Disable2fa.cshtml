@@ -10,16 +10,16 @@
 
 <div class="alert alert-warning" role="alert">
     <p>
-        <strong>This action only disables 2FA.</strong>
+        <strong>Это действие отключит двухфакторную аунтентификацию (2FA)</strong>
     </p>
     <p>
-        Disabling 2FA does not change the keys used in authenticator apps. If you wish to change the key
-        used in an authenticator app you should <a asp-page="./ResetAuthenticator">reset your authenticator keys.</a>
+        Отключение 2FA не изменит ключи аутентификации внутри приложений-аутентификаторов. Если вы хотите
+        изменить или удалить ключи используемые внутри этих приложений, <a asp-page="./ResetAuthenticator">то перейдите по ссылке для сброса. </a>
     </p>
 </div>
 
 <div>
     <form method="post">
-        <button class="btn btn-danger" type="submit">Disable 2FA</button>
+        <button class="btn btn-danger" type="submit">Отключить 2FA</button>
     </form>
 </div>
