@@ -21,5 +21,4 @@ CRM-система, разработанная на платформе .NET6 с 
 </br>
 </br>
 Данная CRM-система сделана в качестве курсовой работы на втором курсе обучения в Колледже Информационных Технологий и Строительства в начале 2022 года. Успешно защищена в мае 2022 на комиссии.</br>
-![](https://64.media.tumblr.com/e02a94eb3ed476b9088dae2247218b35/tumblr_pof1ooiEIG1x6a7yto1_500.gif)
-<img src="https://64.media.tumblr.com/e02a94eb3ed476b9088dae2247218b35/tumblr_pof1ooiEIG1x6a7yto1_500.gif"></img>
+<img src="https://64.media.tumblr.com/e02a94eb3ed476b9088dae2247218b35/tumblr_pof1ooiEIG1x6a7yto1_500.gif" alt="POV: Первый запуск проекта"></img>
