@@ -9,7 +9,8 @@ CRM-система, разработанная на платформе .NET6 с 
   <li>Docker</li>
 </ul>
 
-Приложение контейнеризовано через Docker-compose
-Репозиторий с образом на <a href="https://hub.docker.com/u/vladimirk2003">Docker Hub</a>
+Приложение контейнеризовано через Docker-compose</br>
+Репозиторий с образом на <a href="https://hub.docker.com/u/vladimirk2003">Docker Hub</a></br>
+В решении применён подход чистой архитектуры. Каждый проект - отдельный её слой:</br>
 
 ![](https://64.media.tumblr.com/e02a94eb3ed476b9088dae2247218b35/tumblr_pof1ooiEIG1x6a7yto1_500.gif)
